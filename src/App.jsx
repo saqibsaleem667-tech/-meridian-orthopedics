@@ -1611,10 +1611,29 @@ function CheckoutModal({ client, cartItems, cartTotal, setQty, onClose, onSubmit
 }
 
 function Field({ icon: Icon, ...props }) {
+  const [show, setShow] = useState(false);
+  const isPassword = props.type === "password";
   return (
     <div className="relative">
       <Icon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#171E22]/35" />
-      <input {...props} onChange={(e) => props.onChange(e.target.value)} className={`w-full pl-8 pr-3 py-2.5 text-sm border rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 ${props.disabled ? "bg-[#F6F7F6] text-[#171E22]/40 border-[#C9D6D6]" : "border-[#C9D6D6]"}`} />
+      <input {...props} type={isPassword && show ? "text" : props.type} onChange={(e) => props.onChange(e.target.value)} className={`w-full pl-8 ${isPassword ? "pr-9" : "pr-3"} py-2.5 text-sm border rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 ${props.disabled ? "bg-[#F6F7F6] text-[#171E22]/40 border-[#C9D6D6]" : "border-[#C9D6D6]"}`} />
+      {isPassword && (
+        <button type="button" onClick={() => setShow((s) => !s)} tabIndex={-1} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#171E22]/40 hover:text-[#171E22]/70">
+          {show ? <EyeOff size={14} /> : <Eye size={14} />}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function BarePasswordInput({ className, ...props }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <input {...props} type={show ? "text" : "password"} className={`${className} pr-9`} />
+      <button type="button" onClick={() => setShow((s) => !s)} tabIndex={-1} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#171E22]/40 hover:text-[#171E22]/70">
+        {show ? <EyeOff size={14} /> : <Eye size={14} />}
+      </button>
     </div>
   );
 }
@@ -1933,8 +1952,8 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
               <>
                 <p className="text-sm text-[#171E22]/50 mb-4">Enter your recovery code and choose a new passcode.</p>
                 <input value={recoveryCode} onChange={(e) => setRecoveryCode(e.target.value)} placeholder="Recovery code (e.g. ABCD-1234-EFGH)" aria-label="Recovery code" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 font-mono focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
-                <input type="password" value={newPasscode} onChange={(e) => setNewPasscode(e.target.value)} placeholder="New passcode" aria-label="New passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
-                <input type="password" value={confirmPasscode} onChange={(e) => setConfirmPasscode(e.target.value)} placeholder="Confirm new passcode" aria-label="Confirm new passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
+                <BarePasswordInput value={newPasscode} onChange={(e) => setNewPasscode(e.target.value)} placeholder="New passcode" aria-label="New passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
+                <BarePasswordInput value={confirmPasscode} onChange={(e) => setConfirmPasscode(e.target.value)} placeholder="Confirm new passcode" aria-label="Confirm new passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
                 {recoverError && <div className="text-xs text-red-500 mb-2">{recoverError}</div>}
                 <button onClick={handleRecover} disabled={recoverBusy} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-2.5 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60">{recoverBusy ? "Resetting…" : "Reset passcode"}</button>
               </>
@@ -1950,7 +1969,7 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
           <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-10 h-10 rounded-sm flex items-center justify-center mb-4"><Lock size={16} /></div>
           <div className="font-display font-semibold text-xl mb-1">Admin dashboard</div>
           <p className="text-sm text-[#171E22]/50 mb-4">Enter the admin passcode to continue.</p>
-          <input type="password" value={adminPass} onChange={(e) => setAdminPass(e.target.value)} placeholder="Passcode" aria-label="Admin passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" onKeyDown={(e) => e.key === "Enter" && !checking && tryEnter()} />
+          <BarePasswordInput value={adminPass} onChange={(e) => setAdminPass(e.target.value)} placeholder="Passcode" aria-label="Admin passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" onKeyDown={(e) => e.key === "Enter" && !checking && tryEnter()} />
           {adminError && <div className="text-xs text-red-500 mb-2">{adminError}</div>}
           <button onClick={tryEnter} disabled={checking} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-2.5 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60">{checking ? "Checking…" : "Enter"}</button>
           <button onClick={() => { setGateMode("recover"); setRecoverError(""); setRecoveryCode(""); setNewPasscode(""); setConfirmPasscode(""); setIssuedCode(null); }} className="w-full text-center text-xs text-[#171E22]/50 hover:underline mt-3">Forgot passcode?</button>
