@@ -127,28 +127,12 @@ function printOrderInvoice(order) {
   setTimeout(() => w.print(), 300);
 }
 
-/* ---------------- Password / answer hashing ----------------
-   Client-side SHA-256 hashing so passwords and security-question
-   answers are never stored in plain text. Note: this is still a
-   front-end-only app with no real server, so a technically
-   determined person reading the JS bundle can find the comparison
-   logic — genuine security (salted server-side hashing, real auth)
-   needs a real backend. This is a meaningful improvement over plain
-   text, not a substitute for that. */
-async function hashText(text) {
-  try {
-    const enc = new TextEncoder().encode((text || "").trim().toLowerCase());
-    const buf = await window.crypto.subtle.digest("SHA-256", enc);
-    return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
-  } catch (e) {
-    // Very old browsers without SubtleCrypto — fall back so accounts
-    // still work, though this fallback is far weaker than SHA-256.
-    let hash = 0;
-    const t = (text || "").trim().toLowerCase();
-    for (let i = 0; i < t.length; i++) hash = (hash * 31 + t.charCodeAt(i)) >>> 0;
-    return "fb" + hash.toString(16).padStart(8, "0");
-  }
-}
+/* ---------------- Password / passcode handling ----------------
+   Passwords, the admin passcode, and security answers are sent to the
+   backend as-is over HTTPS (the normal, safe approach — this is how
+   virtually every real login form works). The server generates a
+   random salt per account and hashes there; the browser never computes
+   or stores a password hash. */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // Demo passcode "meridian2026": on a brand-new/empty backend, whichever
 // passcode is entered first at the admin gate becomes the real one
@@ -491,10 +475,9 @@ export default function App() {
   }
   useEffect(() => { loadPublicData(); }, []);
 
-  async function persistCatalog(next) {
-    setProducts(next);
-    try { await api("saveCatalog", { token: getAdminToken(), catalog: next }); } catch (e) {}
-  }
+  // Product saves (add/edit/delete/hide) each go straight to their own
+  // Products-sheet row via api() — see addProduct/updateProduct/
+  // deleteProduct/toggleHideProduct below.
 
   async function addProduct(form) {
     setProductBusy(true);
@@ -507,8 +490,10 @@ export default function App() {
         return false;
       }
       const newProduct = { ...form, id, price: Number(form.price) || 0, moq: Number(form.moq) || 1, hidden: false };
-      await persistCatalog([newProduct, ...products]);
+      const r = await api("addProduct", { token: getAdminToken(), product: newProduct });
       setProductBusy(false);
+      if (!r.ok) { setProductError(r.error || "Could not add product. Please try again."); return false; }
+      setProducts((prev) => [newProduct, ...prev]);
       return true;
     } catch (e) {
       setProductError("Could not add product. Please try again.");
@@ -521,9 +506,11 @@ export default function App() {
     setProductBusy(true);
     setProductError("");
     try {
-      const next = products.map((p) => (p.id === id ? { ...p, ...form, price: Number(form.price) || 0, moq: Number(form.moq) || 1 } : p));
-      await persistCatalog(next);
+      const updated = { ...form, id, price: Number(form.price) || 0, moq: Number(form.moq) || 1 };
+      const r = await api("updateProduct", { token: getAdminToken(), id, product: updated });
       setProductBusy(false);
+      if (!r.ok) { setProductError(r.error || "Could not save changes. Please try again."); return false; }
+      setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, ...updated } : p)));
       return true;
     } catch (e) {
       setProductError("Could not save changes. Please try again.");
@@ -533,14 +520,14 @@ export default function App() {
   }
 
   async function deleteProduct(id) {
-    const next = products.filter((p) => p.id !== id);
-    await persistCatalog(next);
+    setProducts((prev) => prev.filter((p) => p.id !== id));
     setCart((c) => { const n = { ...c }; delete n[id]; return n; });
+    try { await api("deleteProduct", { token: getAdminToken(), id }); } catch (e) {}
   }
 
   async function toggleHideProduct(id) {
-    const next = products.map((p) => (p.id === id ? { ...p, hidden: !p.hidden } : p));
-    await persistCatalog(next);
+    setProducts((prev) => prev.map((p) => (p.id === id ? { ...p, hidden: !p.hidden } : p)));
+    try { await api("toggleHideProduct", { token: getAdminToken(), id }); } catch (e) {}
   }
 
   /* ---- Categories (admin-editable, shared across all clients) ---- */
@@ -571,11 +558,9 @@ export default function App() {
      (so this can't be done just by knowing a stale client-side hash). */
   async function changeAdminPasscode(currentPass, newPass) {
     if (!newPass || newPass.length < 4) return { ok: false, error: "New passcode must be at least 4 characters." };
-    const currentHash = await hashText(currentPass);
-    const verify = await api("adminLogin", { passcodeHash: currentHash });
+    const verify = await api("adminLogin", { passcode: currentPass });
     if (!verify.ok) return { ok: false, error: "Current passcode is incorrect." };
-    const newHash = await hashText(newPass);
-    const r = await api("changeAdminPasscode", { token: verify.token, newPasscodeHash: newHash });
+    const r = await api("changeAdminPasscode", { token: verify.token, newPasscode: newPass });
     if (!r.ok) return { ok: false, error: r.error || "Could not update passcode. Please try again." };
     setAdminTokenStorage(verify.token);
     return { ok: true };
@@ -591,22 +576,18 @@ export default function App() {
     const token = getAdminToken();
     if (!token) return { ok: false, error: "Admin session expired. Please log in again." };
     const code = generateRecoveryCode();
-    const hash = await hashText(code);
-    const r = await api("setRecoveryCode", { token, recoveryCodeHash: hash });
+    const r = await api("setRecoveryCode", { token, recoveryCode: code });
     if (!r.ok) return { ok: false, error: r.error || "Could not generate a new recovery code. Please try again." };
     return { ok: true, code };
   }
   async function resetPasscodeWithRecoveryCode(code, newPass) {
     if (!newPass || newPass.length < 4) return { ok: false, error: "New passcode must be at least 4 characters." };
-    const codeHash = await hashText(code);
-    const newPassHash = await hashText(newPass);
-    const r = await api("recoverAdminPasscode", { recoveryCodeHash: codeHash, newPasscodeHash: newPassHash });
+    const r = await api("recoverAdminPasscode", { recoveryCode: code, newPasscode: newPass });
     if (!r.ok) return { ok: false, error: r.error || "That recovery code doesn't match." };
     setAdminTokenStorage(r.token);
     // The used recovery code is now spent — issue a fresh one.
     const newCode = generateRecoveryCode();
-    const newCodeHash = await hashText(newCode);
-    await api("setRecoveryCode", { token: r.token, recoveryCodeHash: newCodeHash });
+    await api("setRecoveryCode", { token: r.token, recoveryCode: newCode });
     return { ok: true, newCode, token: r.token };
   }
 
@@ -699,13 +680,12 @@ export default function App() {
         setAuthBusy(false);
         return false;
       }
-      const passwordHash = await hashText(form.password);
-      const securityAnswerHash = form.securityAnswer ? await hashText(form.securityAnswer) : "";
       const { password, securityAnswer, ...rest } = form;
       const r = await api("registerClient", {
         email: form.email.toLowerCase(),
-        passwordHash,
-        profile: { ...rest, securityAnswerHash, createdAt: Date.now() },
+        password: form.password,
+        securityAnswer: securityAnswer || "",
+        profile: { ...rest, createdAt: Date.now() },
       });
       setAuthBusy(false);
       if (!r.ok) { setAuthError(r.error || "Could not create account. Please try again."); return false; }
@@ -721,8 +701,7 @@ export default function App() {
     setAuthBusy(true);
     setAuthError("");
     try {
-      const passwordHash = await hashText(password);
-      const r = await api("loginClient", { email: email.toLowerCase(), passwordHash });
+      const r = await api("loginClient", { email: email.toLowerCase(), password });
       setAuthBusy(false);
       if (!r.ok) { setAuthError(r.error || "Incorrect email or password."); return false; }
       setClient(r.client);
@@ -757,9 +736,7 @@ export default function App() {
   }
   async function resetPasswordWithSecurityAnswer(email, answer, newPassword) {
     try {
-      const answerHash = await hashText(answer);
-      const newPasswordHash = await hashText(newPassword);
-      const r = await api("resetPassword", { email: email.toLowerCase(), answerHash, newPasswordHash });
+      const r = await api("resetPassword", { email: email.toLowerCase(), answer, newPassword });
       return r;
     } catch (e) {
       return { ok: false, error: "Could not reset password. Please try again." };
@@ -780,9 +757,7 @@ export default function App() {
   }
   async function changeClientPassword(currentPassword, newPassword) {
     try {
-      const currentPasswordHash = await hashText(currentPassword);
-      const newPasswordHash = await hashText(newPassword);
-      const r = await api("changePassword", { token: getClientToken(), currentPasswordHash, newPasswordHash });
+      const r = await api("changePassword", { token: getClientToken(), currentPassword, newPassword });
       if (!r.ok) return { ok: false, error: r.error || "Current password is incorrect." };
       return { ok: true };
     } catch (e) {
@@ -1914,8 +1889,7 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
 
   async function tryEnter() {
     setChecking(true);
-    const h = await hashText(adminPass);
-    const r = await api("adminLogin", { passcodeHash: h });
+    const r = await api("adminLogin", { passcode: adminPass });
     setChecking(false);
     if (r && r.ok) {
       setAdminTokenStorage(r.token);
