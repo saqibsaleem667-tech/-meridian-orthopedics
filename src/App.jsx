@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { ShoppingCart, X, Plus, Minus, Search, ChevronRight, Lock, LayoutDashboard, Package, Clock, CheckCircle2, Truck, PackageCheck, Trash2, ArrowLeft, Phone, MapPin, Building2, ClipboardList, User, LogOut, Mail, CreditCard, ListOrdered, Check, XCircle, Eye, EyeOff, Upload, Download, Printer, HelpCircle, Tag } from "lucide-react";
+import { ShoppingCart, X, Plus, Minus, Search, ChevronRight, Lock, LayoutDashboard, Package, Clock, CheckCircle2, Truck, PackageCheck, Trash2, ArrowLeft, Phone, MapPin, Building2, ClipboardList, User, LogOut, Mail, CreditCard, ListOrdered, Check, XCircle, Eye, EyeOff, Upload, Download, Printer, HelpCircle, Tag, MessageCircle, Send } from "lucide-react";
 
 /* ============================================================
    DESIGN TOKENS
@@ -856,7 +856,12 @@ export default function App() {
   }
 
   if (!client) {
-    return <AuthGate onRegister={registerClient} onLogin={loginClient} busy={authBusy} error={authError} clearError={() => setAuthError("")} getSecurityQuestion={getSecurityQuestion} resetPasswordWithSecurityAnswer={resetPasswordWithSecurityAnswer} />;
+    return (
+      <>
+        <AuthGate onRegister={registerClient} onLogin={loginClient} busy={authBusy} error={authError} clearError={() => setAuthError("")} getSecurityQuestion={getSecurityQuestion} resetPasswordWithSecurityAnswer={resetPasswordWithSecurityAnswer} />
+        <ChatWidget />
+      </>
+    );
   }
 
   return (
@@ -919,11 +924,121 @@ export default function App() {
           onLogout={() => { backNav(); logoutClient(); }}
         />
       )}
+
+      <ChatWidget />
     </div>
   );
 }
 
 /* ---------------- Auth (register / login) ---------------- */
+
+/* ---------------- Floating AI chatbot (Gemini, via backend) ---------------- */
+function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { role: "bot", text: "Hi! I can answer questions about our implants, materials, sizes, and ordering. What would you like to know?" },
+  ]);
+  const [input, setInput] = useState("");
+  const [sending, setSending] = useState(false);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [messages, open]);
+
+  function getVisitorId() {
+    try {
+      let id = window.localStorage.getItem("meridian-ortho:visitor-id");
+      if (!id) {
+        id = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID() : "v-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+        window.localStorage.setItem("meridian-ortho:visitor-id", id);
+      }
+      return id;
+    } catch (e) {
+      return "anon";
+    }
+  }
+
+  async function send() {
+    const text = input.trim();
+    if (!text || sending) return;
+    const nextMessages = [...messages, { role: "user", text }];
+    setMessages(nextMessages);
+    setInput("");
+    setSending(true);
+    try {
+      const history = nextMessages.slice(0, -1).map((m) => ({ role: m.role, text: m.text }));
+      const r = await api("chatWithBot", { message: text, history, visitorId: getVisitorId() });
+      if (r && r.ok) {
+        setMessages((m) => [...m, { role: "bot", text: r.reply }]);
+      } else {
+        setMessages((m) => [...m, { role: "bot", text: (r && r.error) || "Sorry, something went wrong. Please try again." }]);
+      }
+    } catch (e) {
+      setMessages((m) => [...m, { role: "bot", text: "Sorry, something went wrong. Please try again." }]);
+    }
+    setSending(false);
+  }
+
+  return (
+    <>
+      {open ? (
+        <div style={{ position: "fixed", bottom: 20, right: 20, width: 320, maxWidth: "calc(100vw - 32px)", height: 440, maxHeight: "calc(100vh - 100px)", backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", borderRadius: 8, boxShadow: "0 12px 32px rgba(0,0,0,0.18)", display: "flex", flexDirection: "column", zIndex: 70 }}>
+          <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="flex items-center justify-between px-3.5 py-3 rounded-t-[8px]">
+            <div className="flex items-center gap-2">
+              <MessageCircle size={16} />
+              <span className="text-sm font-medium font-display">Product Assistant</span>
+            </div>
+            <button onClick={() => setOpen(false)} aria-label="Close chat" style={{ color: "rgba(255,255,255,0.85)" }} className="hover:text-white">
+              <X size={16} />
+            </button>
+          </div>
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5" style={{ backgroundColor: "#F6F7F6" }}>
+            {messages.map((m, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
+                <div style={{
+                  maxWidth: "85%", padding: "7px 10px", borderRadius: 6, fontSize: 13, lineHeight: 1.4,
+                  backgroundColor: m.role === "user" ? "#0E8C82" : "#FFFFFF",
+                  color: m.role === "user" ? "#FFFFFF" : "#171E22",
+                  border: m.role === "user" ? "none" : "1px solid #C9D6D6",
+                }}>
+                  {m.text}
+                </div>
+              </div>
+            ))}
+            {sending && (
+              <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                <div style={{ padding: "7px 10px", borderRadius: 6, fontSize: 13, backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", color: "#171E22aa" }}>Typing…</div>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 p-2.5 border-t" style={{ borderColor: "#C9D6D6" }}>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && send()}
+              placeholder="Ask about our products…"
+              aria-label="Chat message"
+              className="flex-1 px-2.5 py-2 text-sm border rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40"
+              style={{ borderColor: "#C9D6D6" }}
+            />
+            <button onClick={send} disabled={sending || !input.trim()} aria-label="Send" style={{ backgroundColor: "#23424D", color: "#FFFFFF", opacity: sending || !input.trim() ? 0.5 : 1 }} className="p-2 rounded-sm">
+              <Send size={15} />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Open chat assistant"
+          style={{ position: "fixed", bottom: 20, right: 20, backgroundColor: "#23424D", color: "#FFFFFF", width: 52, height: 52, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 6px 18px rgba(0,0,0,0.25)", zIndex: 70 }}
+        >
+          <MessageCircle size={22} />
+        </button>
+      )}
+    </>
+  );
+}
 
 function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQuestion, resetPasswordWithSecurityAnswer }) {
   const [mode, setMode] = useState("login"); // login | register | forgot
