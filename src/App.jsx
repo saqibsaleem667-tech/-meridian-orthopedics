@@ -1883,7 +1883,6 @@ function SiteFooter({ settings }) {
             <div className="font-medium text-[#10151F]/80 mb-1">Contact</div>
             <div className="flex items-center gap-1.5"><Mail size={12} /> {settings.email}</div>
             <div className="flex items-center gap-1.5 mt-0.5"><Phone size={12} /> {settings.phone}</div>
-            <div className="text-[10px] text-[#10151F]/40 mt-1">(editable from Admin → Site Settings)</div>
           </div>
           <div>
             <div className="font-medium text-[#10151F]/80 mb-1">Legal</div>
