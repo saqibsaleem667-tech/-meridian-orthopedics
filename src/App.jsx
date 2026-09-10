@@ -3,16 +3,16 @@ import { ShoppingCart, X, Plus, Minus, Search, ChevronRight, Lock, LayoutDashboa
 
 /* ============================================================
    DESIGN TOKENS
-   Base:    #F6F7F6  (clinical white)
-   Ink:     #171E22  (graphite)
-   Primary: #23424D  (titanium blue)
-   Line:    #C9D6D6  (blueprint line)
-   Accent:  #0E8C82  (medical teal — CTAs / sterile badges)
+   Base:    #F4F5F8  (clinical white)
+   Ink:     #10151F  (graphite)
+   Primary: #1E3A5F  (titanium blue)
+   Line:    #D7DCE3  (blueprint line)
+   Accent:  #8A6A2E  (medical teal — CTAs / sterile badges)
    Bone:    #E9E2D0  (warm ivory — sparing use)
-   Display: "Space Grotesk", body: "Inter", data: "JetBrains Mono"
+   Display: "Fraunces", body: "IBM Plex Sans", data: "IBM Plex Mono"
    ============================================================ */
 
-const FONTS_LINK = "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap";
+const FONTS_LINK = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap";
 
 const DEFAULT_CATEGORIES = ["Trauma Plates", "Intramedullary Nails", "Screws & Fixation"];
 const CLIENT_TYPES = ["Hospital", "Clinic", "Distributor", "Pharmacy"];
@@ -97,13 +97,13 @@ function printOrderInvoice(order) {
   const rows = order.items.map((it) => `<tr><td style="padding:6px 8px;border-bottom:1px solid #ddd;">${it.id}</td><td style="padding:6px 8px;border-bottom:1px solid #ddd;text-align:center;">${it.qty}</td><td style="padding:6px 8px;border-bottom:1px solid #ddd;text-align:right;">${money(it.price)}</td><td style="padding:6px 8px;border-bottom:1px solid #ddd;text-align:right;">${money(it.price * it.qty)}</td></tr>`).join("");
   const html = `<!DOCTYPE html><html><head><title>Invoice ${order.orderId}</title>
     <style>
-      body { font-family: Arial, sans-serif; color: #171E22; padding: 32px; }
+      body { font-family: Arial, sans-serif; color: #10151F; padding: 32px; }
       h1 { font-size: 18px; margin-bottom: 2px; }
       .muted { color: #666; font-size: 12px; }
       table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-      th { text-align: left; padding: 6px 8px; border-bottom: 2px solid #171E22; font-size: 12px; }
+      th { text-align: left; padding: 6px 8px; border-bottom: 2px solid #10151F; font-size: 12px; }
       td { font-size: 13px; }
-      .total-row td { font-weight: bold; border-top: 2px solid #171E22; }
+      .total-row td { font-weight: bold; border-top: 2px solid #10151F; }
     </style></head><body>
     <h1>Meridian Orthopaedics — Invoice</h1>
     <div class="muted">Order ${order.orderId} · ${new Date(order.ts).toLocaleString()}</div>
@@ -208,11 +208,11 @@ function setAdminTokenStorage(token) {
 
 function TechFrame({ children, code, label }) {
   return (
-    <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 3", backgroundColor: "#F6F7F6", border: "1px solid #C9D6D6", borderRadius: "2px", overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", aspectRatio: "4 / 3", backgroundColor: "#F4F5F8", border: "1px solid #D7DCE3", borderRadius: "2px", overflow: "hidden" }}>
       <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.35 }} aria-hidden="true">
         <defs>
           <pattern id={`grid-${code}`} width="14" height="14" patternUnits="userSpaceOnUse">
-            <path d="M 14 0 L 0 0 0 14" fill="none" stroke="#C9D6D6" strokeWidth="0.6" />
+            <path d="M 14 0 L 0 0 0 14" fill="none" stroke="#D7DCE3" strokeWidth="0.6" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#grid-${code})`} />
@@ -243,11 +243,11 @@ function parseSpec(dimStr = "") {
 
 function DimLine({ x1, y1, x2, y2, label, vertical }) {
   return (
-    <g stroke="#0E8C82" strokeWidth="0.8">
+    <g stroke="#8A6A2E" strokeWidth="0.8">
       <line x1={x1} y1={y1} x2={x2} y2={y2} />
       <line x1={x1} y1={y1 - 3} x2={x1} y2={y1 + 3} />
       <line x1={x2} y1={y2 - 3} x2={x2} y2={y2 + 3} />
-      <text x={(x1 + x2) / 2} y={vertical ? (y1 + y2) / 2 : y1 - 5} fontSize="6" fill="#0E8C82" fontFamily="JetBrains Mono, monospace" textAnchor="middle">{label}</text>
+      <text x={(x1 + x2) / 2} y={vertical ? (y1 + y2) / 2 : y1 - 5} fontSize="6" fill="#8A6A2E" fontFamily="IBM Plex Mono, monospace" textAnchor="middle">{label}</text>
     </g>
   );
 }
@@ -264,11 +264,11 @@ function PlateIcon({ product }) {
   const cxs = Array.from({ length: holes }, (_, i) => startX + 8 + i * gap);
   return (
     <svg viewBox="0 0 160 110" className="w-4/5 h-4/5">
-      <rect x={startX} y={y - barH / 2} width={endX - startX} height={barH} rx={barH / 2} fill="none" stroke="#23424D" strokeWidth="2" />
+      <rect x={startX} y={y - barH / 2} width={endX - startX} height={barH} rx={barH / 2} fill="none" stroke="#1E3A5F" strokeWidth="2" />
       {cxs.map((cx, i) => (
         <g key={i}>
-          <circle cx={cx} cy={y} r="4.2" fill="none" stroke="#23424D" strokeWidth="1.4" />
-          {isLocking && <circle cx={cx} cy={y} r="1.6" fill="#0E8C82" />}
+          <circle cx={cx} cy={y} r="4.2" fill="none" stroke="#1E3A5F" strokeWidth="1.4" />
+          {isLocking && <circle cx={cx} cy={y} r="1.6" fill="#8A6A2E" />}
         </g>
       ))}
       <DimLine x1={startX} y1={30} x2={endX} y2={30} label={spec.length ? `${spec.length} mm` : `${holes}-hole`} />
@@ -283,12 +283,12 @@ function NailIcon({ product }) {
   const spec = parseSpec(product?.dim);
   return (
     <svg viewBox="0 0 160 110" className="w-4/5 h-4/5">
-      <line x1="26" y1="55" x2="118" y2="55" stroke="#23424D" strokeWidth="6" strokeLinecap="round" />
-      <path d="M118 47 L136 55 L118 63 Z" fill="#23424D" />
+      <line x1="26" y1="55" x2="118" y2="55" stroke="#1E3A5F" strokeWidth="6" strokeLinecap="round" />
+      <path d="M118 47 L136 55 L118 63 Z" fill="#1E3A5F" />
       {[88, 101].map((cx, i) => (
-        <line key={i} x1={cx} y1="49" x2={cx} y2="61" stroke="#F6F7F6" strokeWidth="2" />
+        <line key={i} x1={cx} y1="49" x2={cx} y2="61" stroke="#F4F5F8" strokeWidth="2" />
       ))}
-      <circle cx="30" cy="55" r="6" fill="none" stroke="#23424D" strokeWidth="2" />
+      <circle cx="30" cy="55" r="6" fill="none" stroke="#1E3A5F" strokeWidth="2" />
       <DimLine x1={26} y1={36} x2={118} y2={36} label={spec.length ? `${spec.length} mm` : "length"} />
       <DimLine x1={146} y1={49} x2={146} y2={61} label={spec.diameter ? `Ø${spec.diameter}` : "Ø"} vertical />
     </svg>
@@ -307,19 +307,19 @@ function ScrewIcon({ product }) {
   return (
     <svg viewBox="0 0 160 110" className="w-4/5 h-4/5">
       {isLocking ? (
-        <polygon points="55,26 69,26 76,32 76,40 69,46 55,46 48,40 48,32" fill="#23424D" />
+        <polygon points="55,26 69,26 76,32 76,40 69,46 55,46 48,40 48,32" fill="#1E3A5F" />
       ) : (
-        <rect x="52" y="26" width="20" height="12" fill="#23424D" />
+        <rect x="52" y="26" width="20" height="12" fill="#1E3A5F" />
       )}
-      {!isLocking && <line x1="62" y1="26" x2="62" y2="38" stroke="#F6F7F6" strokeWidth="1.8" />}
-      {isCannulated && <circle cx="62" cy={isLocking ? 36 : 32} r="2.6" fill="#F6F7F6" />}
-      <g stroke="#23424D" strokeWidth="1.8">
+      {!isLocking && <line x1="62" y1="26" x2="62" y2="38" stroke="#F4F5F8" strokeWidth="1.8" />}
+      {isCannulated && <circle cx="62" cy={isLocking ? 36 : 32} r="2.6" fill="#F4F5F8" />}
+      <g stroke="#1E3A5F" strokeWidth="1.8">
         {Array.from({ length: threadCount }).map((_, i) => (
           <line key={i} x1="50" y1={50 + i * 5.5} x2="74" y2={50 + i * 5.5} />
         ))}
       </g>
-      {isCannulated && <line x1="62" y1="46" x2="62" y2={50 + (threadCount - 1) * 5.5} stroke="#F6F7F6" strokeWidth="2.4" />}
-      <path d={`M50 ${50 + threadCount * 5.5} L62 ${58 + threadCount * 5.5} L74 ${50 + threadCount * 5.5} Z`} fill="none" stroke="#23424D" strokeWidth="2" />
+      {isCannulated && <line x1="62" y1="46" x2="62" y2={50 + (threadCount - 1) * 5.5} stroke="#F4F5F8" strokeWidth="2.4" />}
+      <path d={`M50 ${50 + threadCount * 5.5} L62 ${58 + threadCount * 5.5} L74 ${50 + threadCount * 5.5} Z`} fill="none" stroke="#1E3A5F" strokeWidth="2" />
       <DimLine x1={92} y1={38} x2={92} y2={50 + threadCount * 5.5} label={spec.length ? `L${spec.length}` : "length"} vertical />
       <DimLine x1={38} y1={50} x2={38} y2={74} label={spec.diameter ? `Ø${spec.diameter}` : ""} vertical />
     </svg>
@@ -333,10 +333,10 @@ function GenericIcon({ product }) {
   const label = (product?.cat || "ITEM").toUpperCase();
   return (
     <svg viewBox="0 0 160 110" className="w-4/5 h-4/5">
-      <rect x="40" y="28" width="80" height="54" rx="4" fill="none" stroke="#23424D" strokeWidth="2" />
-      <line x1="40" y1="44" x2="120" y2="44" stroke="#23424D" strokeWidth="1.2" />
-      <circle cx="52" cy="36" r="2.4" fill="#0E8C82" />
-      <text x="80" y="66" fontSize="8.5" fill="#23424D" fontFamily="JetBrains Mono, monospace" textAnchor="middle">{label.length > 14 ? label.slice(0, 14) + "…" : label}</text>
+      <rect x="40" y="28" width="80" height="54" rx="4" fill="none" stroke="#1E3A5F" strokeWidth="2" />
+      <line x1="40" y1="44" x2="120" y2="44" stroke="#1E3A5F" strokeWidth="1.2" />
+      <circle cx="52" cy="36" r="2.4" fill="#8A6A2E" />
+      <text x="80" y="66" fontSize="8.5" fill="#1E3A5F" fontFamily="IBM Plex Mono, monospace" textAnchor="middle">{label.length > 14 ? label.slice(0, 14) + "…" : label}</text>
     </svg>
   );
 }
@@ -355,7 +355,7 @@ function IconFor(product) {
 function ProductThumb({ product, className }) {
   if (product.image) {
     return (
-      <div className={className || ""} style={{ position: "relative", width: "100%", aspectRatio: "4 / 3", backgroundColor: "#F6F7F6", border: "1px solid #C9D6D6", borderRadius: "2px", overflow: "hidden" }}>
+      <div className={className || ""} style={{ position: "relative", width: "100%", aspectRatio: "4 / 3", backgroundColor: "#F4F5F8", border: "1px solid #D7DCE3", borderRadius: "2px", overflow: "hidden" }}>
         <img src={product.image} alt={product.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
       </div>
     );
@@ -372,7 +372,7 @@ const STATUS_ICON = { Pending: Clock, Confirmed: CheckCircle2, Dispatched: Truck
 const STATUS_COLOR = {
   Pending: "bg-[#E9E2D0] text-[#6B5D2E]",
   Confirmed: "bg-[#D6E9E7] text-[#0E6B62]",
-  Dispatched: "bg-[#D9E4EA] text-[#23424D]",
+  Dispatched: "bg-[#D9E4EA] text-[#1E3A5F]",
   Delivered: "bg-[#DCEBD9] text-[#2E6B3B]",
   Cancelled: "bg-[#F3D9D6] text-[#9C3B30]",
 };
@@ -382,11 +382,11 @@ const STATUS_COLOR = {
 const STATUS_HEX = {
   Pending: { bg: "#E9E2D0", text: "#6B5D2E" },
   Confirmed: { bg: "#D6E9E7", text: "#0E6B62" },
-  Dispatched: { bg: "#D9E4EA", text: "#23424D" },
+  Dispatched: { bg: "#D9E4EA", text: "#1E3A5F" },
   Delivered: { bg: "#DCEBD9", text: "#2E6B3B" },
   Cancelled: { bg: "#F3D9D6", text: "#9C3B30" },
 };
-const SELECTED_STYLE = { backgroundColor: "#23424D", color: "#FFFFFF", borderColor: "#23424D" };
+const SELECTED_STYLE = { backgroundColor: "#1E3A5F", color: "#FFFFFF", borderColor: "#1E3A5F" };
 
 /* ============================================================ */
 
@@ -429,6 +429,8 @@ export default function App() {
   const [cart, setCart] = useState({}); // { productId: qty }
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [authGateOpen, setAuthGateOpen] = useState(false); // guests can browse freely; this only opens when login/register is actually needed (checkout, My Orders, profile)
+  const [pendingAction, setPendingAction] = useState(null); // "checkout" | "myorders" | null — auto-resumes to this once logged in
   const [profileOpen, setProfileOpen] = useState(false);
   const [activeProduct, setActiveProduct] = useState(null);
   const [cat, setCat] = useState("All");
@@ -604,12 +606,14 @@ export default function App() {
   const viewRef = useRef(view);
   const cartOpenRef = useRef(cartOpen);
   const checkoutOpenRef = useRef(checkoutOpen);
+  const authGateOpenRef = useRef(authGateOpen);
   const profileOpenRef = useRef(profileOpen);
   const activeProductRef = useRef(activeProduct);
   const orderPlacedRef = useRef(orderPlaced);
   useEffect(() => { viewRef.current = view; }, [view]);
   useEffect(() => { cartOpenRef.current = cartOpen; }, [cartOpen]);
   useEffect(() => { checkoutOpenRef.current = checkoutOpen; }, [checkoutOpen]);
+  useEffect(() => { authGateOpenRef.current = authGateOpen; }, [authGateOpen]);
   useEffect(() => { profileOpenRef.current = profileOpen; }, [profileOpen]);
   useEffect(() => { activeProductRef.current = activeProduct; }, [activeProduct]);
   useEffect(() => { orderPlacedRef.current = orderPlaced; }, [orderPlaced]);
@@ -618,6 +622,7 @@ export default function App() {
     function handlePopState() {
       if (orderPlacedRef.current) { setOrderPlaced(null); return; }
       if (checkoutOpenRef.current) { setCheckoutOpen(false); return; }
+      if (authGateOpenRef.current) { setAuthGateOpen(false); setPendingAction(null); return; }
       if (profileOpenRef.current) { setProfileOpen(false); return; }
       if (cartOpenRef.current) { setCartOpen(false); return; }
       if (activeProductRef.current) { setActiveProduct(null); return; }
@@ -630,6 +635,25 @@ export default function App() {
   function pushNav(layer) { try { window.history.pushState({ layer }, ""); } catch (e) {} }
   function replaceNav(layer) { try { window.history.replaceState({ layer }, ""); } catch (e) {} }
   function backNav() { window.history.back(); }
+
+  // Browsing the catalog and adding to cart never requires an account —
+  // this is only called at the actual point login/register is needed
+  // (checkout, My Orders, profile). Whichever action triggered it
+  // auto-resumes once login/register succeeds.
+  function requireAuth(reason) {
+    setPendingAction(reason || null);
+    setAuthGateOpen(true);
+    pushNav("auth");
+  }
+  useEffect(() => {
+    if (!client || !pendingAction) return;
+    const action = pendingAction;
+    setPendingAction(null);
+    setAuthGateOpen(false);
+    if (action === "checkout") { setCheckoutOpen(true); replaceNav("checkout"); }
+    else if (action === "myorders") { goView("myorders"); }
+    else if (action === "profile") { openProfile(); }
+  }, [client, pendingAction]);
 
   function openCart() { setCartOpen(true); pushNav("cart"); }
   function openProfile() { setProfileOpen(true); pushNav("profile"); }
@@ -827,10 +851,10 @@ export default function App() {
 
   if (isAdminEntry) {
     return (
-      <div className="min-h-screen bg-[#F6F7F6] text-[#171E22]" style={{ fontFamily: "Inter, sans-serif" }}>
+      <div className="min-h-screen bg-[#F4F5F8] text-[#10151F]" style={{ fontFamily: "IBM Plex Sans, sans-serif" }}>
         <style>{`
-          .font-display { font-family: 'Space Grotesk', sans-serif; }
-          .font-mono { font-family: 'JetBrains Mono', monospace; }
+          .font-display { font-family: 'Fraunces', serif; }
+          .font-mono { font-family: 'IBM Plex Mono', monospace; }
           .no-scrollbar::-webkit-scrollbar { display: none; }
         `}</style>
         <AdminView
@@ -852,28 +876,42 @@ export default function App() {
   }
 
   if (!sessionChecked) {
-    return <div style={{ minHeight: "100vh", backgroundColor: "#F6F7F6" }} />;
+    return <div style={{ minHeight: "100vh", backgroundColor: "#F4F5F8" }} />;
   }
 
-  if (!client) {
-    return (
-      <>
-        <AuthGate onRegister={registerClient} onLogin={loginClient} busy={authBusy} error={authError} clearError={() => setAuthError("")} getSecurityQuestion={getSecurityQuestion} resetPasswordWithSecurityAnswer={resetPasswordWithSecurityAnswer} />
-        <ChatWidget />
-      </>
-    );
-  }
+  // Guests can browse the full catalog and cart freely; the modal auth
+  // gate below (authGateOpen) is what actually asks them to log in or
+  // register, triggered only at checkout / My Orders / profile.
 
   return (
-    <div className="min-h-screen bg-[#F6F7F6] text-[#171E22]" style={{ fontFamily: "Inter, sans-serif" }}>
+    <div className="min-h-screen bg-[#F4F5F8] text-[#10151F] relative" style={{ fontFamily: "IBM Plex Sans, sans-serif" }}>
       <style>{`
-        .font-display { font-family: 'Space Grotesk', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-display { font-family: 'Fraunces', serif; }
+        .font-mono { font-family: 'IBM Plex Mono', monospace; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        ::selection { background: #8A6A2E; color: #fff; }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #F4F5F8; }
+        ::-webkit-scrollbar-thumb { background: #D7DCE3; border-radius: 8px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8A6A2E; }
+        @keyframes meridianDrift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(8%,10%) scale(1.12); } }
+        @keyframes meridianDrift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-7%,-9%) scale(1.08); } }
+        @keyframes meridianDrift3 { from { transform: translate(-4%,-3%) scale(.95); } to { transform: translate(5%,6%) scale(1.1); } }
+        @keyframes meridianMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes meridianScan { 0% { transform: translateY(-20%); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(220%); opacity: 0; } }
+        @keyframes meridianDraw { to { stroke-dashoffset: 0; } }
+        @keyframes meridianFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .meridian-fade-up { animation: meridianFadeUp .6s ease backwards; }
+        @media (prefers-reduced-motion: reduce) {
+          .meridian-mesh, .meridian-marquee-track, .meridian-scan-beam, .meridian-draw, .meridian-fade-up { animation: none !important; }
+          * { transition-duration: 0.01ms !important; }
+        }
       `}</style>
 
+      <AmbientBackground />
+
       {view === "myorders" ? (
-        <MyOrdersView client={client} orders={myOrders} loading={myOrdersLoading} onCancel={cancelMyOrder} goCatalog={backNav} logout={logoutClient} cartCount={cartCount} setCartOpen={openCart} goMyOrders={() => goView("myorders")} openProfile={openProfile} siteSettings={siteSettings} />
+        <MyOrdersView client={client} orders={myOrders} loading={myOrdersLoading} onCancel={cancelMyOrder} goCatalog={backNav} logout={logoutClient} cartCount={cartCount} setCartOpen={openCart} goMyOrders={() => (client ? goView("myorders") : requireAuth("myorders"))} openProfile={() => (client ? openProfile() : requireAuth("profile"))} siteSettings={siteSettings} />
       ) : (
         <CatalogView
           client={client} logout={logoutClient}
@@ -882,15 +920,15 @@ export default function App() {
           filtered={filtered} products={products} heroSelection={heroSelection} addToCart={addToCart} setQty={setQty} cart={cart}
           activeProduct={activeProduct} setActiveProduct={openProduct} closeProduct={backNav}
           cartCount={cartCount} setCartOpen={openCart}
-          goMyOrders={() => goView("myorders")}
-          openProfile={openProfile}
+          goMyOrders={() => (client ? goView("myorders") : requireAuth("myorders"))}
+          openProfile={() => (client ? openProfile() : requireAuth("profile"))}
           siteSettings={siteSettings}
         />
       )}
 
       {toast && (
-        <div style={{ backgroundColor: "#171E22", color: "#FFFFFF" }} className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] text-sm px-4 py-2.5 rounded-sm flex items-center gap-2 shadow-lg">
-          <Check size={14} className="text-[#0E8C82]" /> {toast}
+        <div style={{ backgroundColor: "#10151F", color: "#FFFFFF" }} className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] text-sm px-4 py-2.5 rounded-none flex items-center gap-2 shadow-lg">
+          <Check size={14} className="text-[#8A6A2E]" /> {toast}
         </div>
       )}
 
@@ -898,7 +936,15 @@ export default function App() {
         <CartDrawer
           cartItems={cartItems} cartTotal={cartTotal} setQty={setQty}
           onClose={backNav}
-          onCheckout={() => { setCartOpen(false); setCheckoutOpen(true); replaceNav("checkout"); }}
+          onCheckout={() => { setCartOpen(false); if (client) { setCheckoutOpen(true); replaceNav("checkout"); } else { requireAuth("checkout"); } }}
+        />
+      )}
+
+      {authGateOpen && (
+        <AuthGate
+          onRegister={registerClient} onLogin={loginClient} busy={authBusy} error={authError} clearError={() => setAuthError("")}
+          getSecurityQuestion={getSecurityQuestion} resetPasswordWithSecurityAnswer={resetPasswordWithSecurityAnswer}
+          onClose={backNav}
         />
       )}
 
@@ -933,6 +979,57 @@ export default function App() {
 /* ---------------- Auth (register / login) ---------------- */
 
 /* ---------------- Floating AI chatbot (Gemini, via backend) ---------------- */
+/* ---------------- Ambient background (Cobalt & Brass theme) ----------------
+   Purely decorative — fixed, pointer-events-none, sits behind all real
+   content in normal DOM stacking order. No effect on data or logic. */
+function AmbientBackground() {
+  return (
+    <div aria-hidden="true" style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+      {/* aurora mesh blobs */}
+      <div style={{
+        position: "absolute", width: "62vw", height: "62vw", minWidth: 420, top: "-24%", left: "-16%",
+        background: "#8A6A2E", opacity: 0.22, borderRadius: "50%", filter: "blur(110px)",
+        animation: "meridianDrift1 24s ease-in-out infinite alternate",
+      }} className="meridian-mesh" />
+      <div style={{
+        position: "absolute", width: "56vw", height: "56vw", minWidth: 380, bottom: "-26%", right: "-14%",
+        background: "#1E3A5F", opacity: 0.20, borderRadius: "50%", filter: "blur(110px)",
+        animation: "meridianDrift2 28s ease-in-out infinite alternate",
+      }} className="meridian-mesh" />
+      <div style={{
+        position: "absolute", width: "40vw", height: "40vw", minWidth: 280, top: "32%", left: "38%",
+        background: "#5E5433", opacity: 0.14, borderRadius: "50%", filter: "blur(110px)",
+        animation: "meridianDrift3 20s ease-in-out infinite alternate",
+      }} className="meridian-mesh" />
+
+      {/* fine dot-grid */}
+      <div style={{
+        position: "absolute", inset: "-10%", opacity: 0.4,
+        backgroundImage: "radial-gradient(rgba(16,21,31,0.22) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }} />
+
+      {/* subtle grain texture */}
+      <div style={{
+        position: "absolute", inset: 0, opacity: 0.045, mixBlendMode: "overlay",
+        backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+      }} />
+
+      {/* faint watermark — locking plate line art */}
+      <svg viewBox="0 0 240 160" style={{ position: "absolute", right: "-6%", bottom: "-8%", width: "44vw", maxWidth: 600, opacity: 0.05 }}>
+        <rect x="60" y="30" width="28" height="96" rx="12" fill="none" stroke="#10151F" strokeWidth="3" />
+        <line x1="88" y1="48" x2="120" y2="48" stroke="#10151F" strokeWidth="3" />
+        <line x1="88" y1="112" x2="120" y2="112" stroke="#10151F" strokeWidth="3" />
+        {[46, 66, 86, 106].map((y) => <circle key={y} cx="74" cy={y} r="4" fill="none" stroke="#10151F" strokeWidth="2" />)}
+      </svg>
+
+      {/* blueprint corner brackets */}
+      <div style={{ position: "fixed", width: 56, height: 56, top: 20, left: 20, opacity: 0.3, borderTop: "1.5px solid #D7DCE3", borderLeft: "1.5px solid #D7DCE3" }} />
+      <div style={{ position: "fixed", width: 56, height: 56, bottom: 20, right: 20, opacity: 0.3, borderBottom: "1.5px solid #D7DCE3", borderRight: "1.5px solid #D7DCE3" }} />
+    </div>
+  );
+}
+
 function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -983,8 +1080,8 @@ function ChatWidget() {
   return (
     <>
       {open ? (
-        <div style={{ position: "fixed", bottom: 20, right: 20, width: 320, maxWidth: "calc(100vw - 32px)", height: 440, maxHeight: "calc(100vh - 100px)", backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", borderRadius: 8, boxShadow: "0 12px 32px rgba(0,0,0,0.18)", display: "flex", flexDirection: "column", zIndex: 70 }}>
-          <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="flex items-center justify-between px-3.5 py-3 rounded-t-[8px]">
+        <div style={{ position: "fixed", bottom: 20, right: 20, width: 320, maxWidth: "calc(100vw - 32px)", height: 440, maxHeight: "calc(100vh - 100px)", backgroundColor: "#FFFFFF", border: "1px solid #D7DCE3", borderRadius: 8, boxShadow: "0 12px 32px rgba(0,0,0,0.18)", display: "flex", flexDirection: "column", zIndex: 70 }}>
+          <div style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="flex items-center justify-between px-3.5 py-3 rounded-t-[8px]">
             <div className="flex items-center gap-2">
               <MessageCircle size={16} />
               <span className="text-sm font-medium font-display">Product Assistant</span>
@@ -993,14 +1090,14 @@ function ChatWidget() {
               <X size={16} />
             </button>
           </div>
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5" style={{ backgroundColor: "#F6F7F6" }}>
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5" style={{ backgroundColor: "#F4F5F8" }}>
             {messages.map((m, i) => (
               <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
                 <div style={{
                   maxWidth: "85%", padding: "7px 10px", borderRadius: 6, fontSize: 13, lineHeight: 1.4,
-                  backgroundColor: m.role === "user" ? "#0E8C82" : "#FFFFFF",
-                  color: m.role === "user" ? "#FFFFFF" : "#171E22",
-                  border: m.role === "user" ? "none" : "1px solid #C9D6D6",
+                  backgroundColor: m.role === "user" ? "#8A6A2E" : "#FFFFFF",
+                  color: m.role === "user" ? "#FFFFFF" : "#10151F",
+                  border: m.role === "user" ? "none" : "1px solid #D7DCE3",
                 }}>
                   {m.text}
                 </div>
@@ -1008,21 +1105,21 @@ function ChatWidget() {
             ))}
             {sending && (
               <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <div style={{ padding: "7px 10px", borderRadius: 6, fontSize: 13, backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", color: "#171E22aa" }}>Typing…</div>
+                <div style={{ padding: "7px 10px", borderRadius: 6, fontSize: 13, backgroundColor: "#FFFFFF", border: "1px solid #D7DCE3", color: "#10151Faa" }}>Typing…</div>
               </div>
             )}
           </div>
-          <div className="flex items-center gap-1.5 p-2.5 border-t" style={{ borderColor: "#C9D6D6" }}>
+          <div className="flex items-center gap-1.5 p-2.5 border-t" style={{ borderColor: "#D7DCE3" }}>
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
               placeholder="Ask about our products…"
               aria-label="Chat message"
-              className="flex-1 px-2.5 py-2 text-sm border rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40"
-              style={{ borderColor: "#C9D6D6" }}
+              className="flex-1 px-2.5 py-2 text-sm border rounded-none focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40"
+              style={{ borderColor: "#D7DCE3" }}
             />
-            <button onClick={send} disabled={sending || !input.trim()} aria-label="Send" style={{ backgroundColor: "#23424D", color: "#FFFFFF", opacity: sending || !input.trim() ? 0.5 : 1 }} className="p-2 rounded-sm">
+            <button onClick={send} disabled={sending || !input.trim()} aria-label="Send" style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF", opacity: sending || !input.trim() ? 0.5 : 1 }} className="p-2 rounded-none">
               <Send size={15} />
             </button>
           </div>
@@ -1031,7 +1128,7 @@ function ChatWidget() {
         <button
           onClick={() => setOpen(true)}
           aria-label="Open chat assistant"
-          style={{ position: "fixed", bottom: 20, right: 20, backgroundColor: "#23424D", color: "#FFFFFF", width: 52, height: 52, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 6px 18px rgba(0,0,0,0.25)", zIndex: 70 }}
+          style={{ position: "fixed", bottom: 20, right: 20, backgroundColor: "#1E3A5F", color: "#FFFFFF", width: 52, height: 52, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 6px 18px rgba(0,0,0,0.25)", zIndex: 70 }}
         >
           <MessageCircle size={22} />
         </button>
@@ -1040,7 +1137,7 @@ function ChatWidget() {
   );
 }
 
-function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQuestion, resetPasswordWithSecurityAnswer }) {
+function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQuestion, resetPasswordWithSecurityAnswer, onClose }) {
   const [mode, setMode] = useState("login"); // login | register | forgot
   const [form, setForm] = useState({ name: "", type: "Hospital", facility: "", license: "", phone: "", email: "", city: "", address: "", password: "", securityQuestion: SECURITY_QUESTIONS[0], securityAnswer: "" });
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
@@ -1112,39 +1209,46 @@ function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQue
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F7F6] flex items-start sm:items-center justify-center p-4 sm:p-6 overflow-y-auto" style={{ fontFamily: "Inter, sans-serif" }}>
-      <style>{`.font-display { font-family: 'Space Grotesk', sans-serif; } .font-mono { font-family: 'JetBrains Mono', monospace; }`}</style>
-      <div className="max-w-md w-full py-6 sm:py-0">
+    <div className="fixed inset-0 z-[80] bg-black/50 flex items-start sm:items-center justify-center p-4 sm:p-6 overflow-y-auto" style={{ fontFamily: "IBM Plex Sans, sans-serif" }} onClick={(e) => { if (e.target === e.currentTarget && onClose) onClose(); }}>
+      <style>{`.font-display { font-family: 'Fraunces', serif; } .font-mono { font-family: 'IBM Plex Mono', monospace; }`}</style>
+      <div className="max-w-md w-full py-6 sm:py-0 relative">
+        {onClose && (
+          <button onClick={onClose} aria-label="Close and continue browsing" style={{ backgroundColor: "#1E3A5F" }} className="absolute top-2 right-2 w-9 h-9 rounded-full flex items-center justify-center text-white shadow-md z-20">
+            <X size={18} />
+          </button>
+        )}
         <div className="flex items-center gap-2 mb-6 justify-center">
-          <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-9 h-9 rounded-sm flex items-center justify-center font-mono text-[10px]">OI</div>
+          <div style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-9 h-9 rounded-none flex items-center justify-center font-mono text-[10px]">OI</div>
           <div>
             <div className="font-display font-semibold text-base leading-tight">Meridian Orthopaedics</div>
-            <div className="text-[10px] tracking-widest uppercase text-[#171E22]/40">Implant Manufacturing</div>
+            <div className="text-[10px] tracking-widest uppercase text-[#10151F]/40">Implant Manufacturing</div>
           </div>
         </div>
 
-        <div style={{ maxHeight: "85vh", overflowY: "auto" }} className="bg-white border border-[#C9D6D6] rounded-sm overflow-hidden">
+        <div style={{ maxHeight: "85vh", overflowY: "auto" }} className="bg-white border border-[#D7DCE3] rounded-none overflow-hidden">
           {mode === "login" && (
             <div className="p-5 space-y-3">
               <div className="mb-1">
                 <div className="font-display font-semibold text-lg">Log in</div>
-                <p className="text-xs text-[#171E22]/50 mt-0.5">Log in to your client account to view pricing and order.</p>
+                <p className="text-xs text-[#10151F]/50 mt-0.5">Log in to your client account to view pricing and order.</p>
               </div>
               {justRegistered && (
-                <div className="bg-[#D6E9E7] text-[#0E6B62] text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Account created — log in below to continue.</div>
+                <div className="bg-[#D6E9E7] text-[#0E6B62] text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Account created — log in below to continue.</div>
               )}
+              <div className="space-y-3" onKeyDown={(e) => { if (e.key === "Enter" && canLogin && !busy) onLogin(loginForm.email, loginForm.password); }}>
               <Field icon={Mail} type="email" placeholder="Email address" value={loginForm.email} onChange={(v) => setLoginForm({ ...loginForm, email: v })} />
               <Field icon={Lock} type="password" placeholder="Password" value={loginForm.password} onChange={(v) => setLoginForm({ ...loginForm, password: v })} />
               {error && <div className="text-xs text-red-500">{error}</div>}
-              <button disabled={!canLogin || busy} onClick={() => onLogin(loginForm.email, loginForm.password)} style={!(!canLogin || busy) ? { backgroundColor: "#23424D", color: "#FFFFFF", borderColor: "#23424D" } : undefined} className={`w-full py-3 rounded-sm text-sm font-semibold border-2 transition-colors ${!canLogin || busy ? "bg-[#F6F7F6] text-[#171E22]/40 border-[#C9D6D6]" : "hover:opacity-90"}`}>
+              <button disabled={!canLogin || busy} onClick={() => onLogin(loginForm.email, loginForm.password)} style={!(!canLogin || busy) ? { backgroundColor: "#1E3A5F", color: "#FFFFFF", borderColor: "#1E3A5F" } : undefined} className={`w-full py-3 rounded-none text-sm font-semibold border-2 transition-colors ${!canLogin || busy ? "bg-[#F4F5F8] text-[#10151F]/40 border-[#D7DCE3]" : "hover:opacity-90"}`}>
                 {busy ? "Logging in…" : "Log in"}
               </button>
               {!canLogin && !busy && (
-                <div className="text-[11px] text-[#171E22]/40 text-center">Fill in: {missingLoginFields.join(", ")}</div>
+                <div className="text-[11px] text-[#10151F]/40 text-center">Fill in: {missingLoginFields.join(", ")}</div>
               )}
-              <button onClick={openForgot} className="w-full text-center text-xs text-[#171E22]/50 hover:underline">Forgot password?</button>
-              <button onClick={() => { setMode("register"); setJustRegistered(false); clearError(); }} className="w-full text-center text-xs text-[#171E22]/60 pt-1">
-                New client? <span className="text-[#0E8C82] font-medium underline">Register here</span>
+              </div>
+              <button onClick={openForgot} className="w-full text-center text-xs text-[#10151F]/50 hover:underline">Forgot password?</button>
+              <button onClick={() => { setMode("register"); setJustRegistered(false); clearError(); }} className="w-full text-center text-xs text-[#10151F]/60 pt-1">
+                New client? <span className="text-[#8A6A2E] font-medium underline">Register here</span>
               </button>
             </div>
           )}
@@ -1153,10 +1257,11 @@ function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQue
             <div className="p-5 space-y-3">
               <div className="mb-1">
                 <div className="font-display font-semibold text-lg">Register</div>
-                <p className="text-xs text-[#171E22]/50 mt-0.5">Create a client account to view catalog pricing and place orders.</p>
+                <p className="text-xs text-[#10151F]/50 mt-0.5">Create a client account to view catalog pricing and place orders.</p>
               </div>
               <Field icon={User} placeholder="Contact person name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
               <SelectPills label="Account type" options={CLIENT_TYPES} value={form.type} onChange={(t) => setForm({ ...form, type: t })} />
+              <div onKeyDown={(e) => { if (e.key === "Enter" && canRegister && !busy) handleRegister(); }} className="space-y-3">
               <Field icon={Building2} placeholder="Facility / business name" value={form.facility} onChange={(v) => setForm({ ...form, facility: v })} />
               <Field icon={CreditCard} placeholder="Business / drug license no. (optional)" value={form.license} onChange={(v) => setForm({ ...form, license: v })} />
               <Field icon={Phone} placeholder="Phone number" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
@@ -1165,21 +1270,22 @@ function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQue
               <Field icon={MapPin} placeholder="Full address" value={form.address} onChange={(v) => setForm({ ...form, address: v })} />
               <Field icon={Lock} type="password" placeholder="Create password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} />
               <div>
-                <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1.5 flex items-center gap-1"><HelpCircle size={11} /> Security question (used to reset your password)</div>
-                <select value={form.securityQuestion} onChange={(e) => setForm({ ...form, securityQuestion: e.target.value })} style={{ color: "#171E22" }} className="w-full px-2.5 py-2 text-xs border border-[#C9D6D6] rounded-sm mb-1.5 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40">
+                <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1.5 flex items-center gap-1"><HelpCircle size={11} /> Security question (used to reset your password)</div>
+                <select value={form.securityQuestion} onChange={(e) => setForm({ ...form, securityQuestion: e.target.value })} style={{ color: "#10151F" }} className="w-full px-2.5 py-2 text-xs border border-[#D7DCE3] rounded-none mb-1.5 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40">
                   {SECURITY_QUESTIONS.map((q) => <option key={q} value={q}>{q}</option>)}
                 </select>
                 <Field icon={HelpCircle} placeholder="Your answer" value={form.securityAnswer} onChange={(v) => setForm({ ...form, securityAnswer: v })} />
               </div>
               {error && <div className="text-xs text-red-500">{error}</div>}
-              <button disabled={!canRegister || busy} onClick={handleRegister} style={!(!canRegister || busy) ? { backgroundColor: "#0E8C82", color: "#FFFFFF", borderColor: "#0E8C82" } : undefined} className={`w-full py-3 rounded-sm text-sm font-semibold border-2 transition-colors ${!canRegister || busy ? "bg-[#F6F7F6] text-[#171E22]/40 border-[#C9D6D6]" : "hover:opacity-90"}`}>
+              <button disabled={!canRegister || busy} onClick={handleRegister} style={!(!canRegister || busy) ? { backgroundColor: "#8A6A2E", color: "#FFFFFF", borderColor: "#8A6A2E" } : undefined} className={`w-full py-3 rounded-none text-sm font-semibold border-2 transition-colors ${!canRegister || busy ? "bg-[#F4F5F8] text-[#10151F]/40 border-[#D7DCE3]" : "hover:opacity-90"}`}>
                 {busy ? "Registering…" : "Register"}
               </button>
               {!canRegister && !busy && (
-                <div className="text-[11px] text-[#171E22]/40 text-center">Fill in: {missingRegisterFields.join(", ")}</div>
+                <div className="text-[11px] text-[#10151F]/40 text-center">Fill in: {missingRegisterFields.join(", ")}</div>
               )}
-              <button onClick={() => { setMode("login"); clearError(); }} className="w-full text-center text-xs text-[#171E22]/60 pt-1">
-                Already have an account? <span className="text-[#0E8C82] font-medium underline">Log in</span>
+              </div>
+              <button onClick={() => { setMode("login"); clearError(); }} className="w-full text-center text-xs text-[#10151F]/60 pt-1">
+                Already have an account? <span className="text-[#8A6A2E] font-medium underline">Log in</span>
               </button>
             </div>
           )}
@@ -1188,14 +1294,14 @@ function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQue
             <div className="p-5 space-y-3">
               <div className="mb-1">
                 <div className="font-display font-semibold text-lg">Reset password</div>
-                <p className="text-xs text-[#171E22]/50 mt-0.5">Answer your security question to set a new password.</p>
+                <p className="text-xs text-[#10151F]/50 mt-0.5">Answer your security question to set a new password.</p>
               </div>
 
               {fpStep === "email" && (
                 <>
                   <Field icon={Mail} type="email" placeholder="Your account email" value={fpEmail} onChange={setFpEmail} />
                   {fpError && <div className="text-xs text-red-500">{fpError}</div>}
-                  <button disabled={fpBusy} onClick={handleFpFindAccount} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-3 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+                  <button disabled={fpBusy} onClick={handleFpFindAccount} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-full py-3 rounded-none text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
                     {fpBusy ? "Checking…" : "Continue"}
                   </button>
                 </>
@@ -1203,22 +1309,22 @@ function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQue
 
               {fpStep === "question" && (
                 <>
-                  <div className="text-xs text-[#171E22]/70 bg-[#F6F7F6] border border-[#C9D6D6] rounded-sm p-2.5">{fpQuestion}</div>
+                  <div className="text-xs text-[#10151F]/70 bg-[#F4F5F8] border border-[#D7DCE3] rounded-none p-2.5">{fpQuestion}</div>
                   <Field icon={HelpCircle} placeholder="Your answer" value={fpAnswer} onChange={setFpAnswer} />
                   <Field icon={Lock} type="password" placeholder="New password (4+ characters)" value={fpNewPassword} onChange={setFpNewPassword} />
                   {fpError && <div className="text-xs text-red-500">{fpError}</div>}
-                  <button disabled={fpBusy} onClick={handleFpReset} style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="w-full py-3 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+                  <button disabled={fpBusy} onClick={handleFpReset} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="w-full py-3 rounded-none text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
                     {fpBusy ? "Resetting…" : "Reset password"}
                   </button>
                 </>
               )}
 
               {fpStep === "done" && (
-                <div className="bg-[#D6E9E7] text-[#0E6B62] text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Password reset — you can log in with your new password now.</div>
+                <div className="bg-[#D6E9E7] text-[#0E6B62] text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Password reset — you can log in with your new password now.</div>
               )}
 
-              <button onClick={() => { setMode("login"); clearError(); }} className="w-full text-center text-xs text-[#171E22]/60 pt-1">
-                Back to <span className="text-[#0E8C82] font-medium underline">Log in</span>
+              <button onClick={() => { setMode("login"); clearError(); }} className="w-full text-center text-xs text-[#10151F]/60 pt-1">
+                Back to <span className="text-[#8A6A2E] font-medium underline">Log in</span>
               </button>
             </div>
           )}
@@ -1232,7 +1338,7 @@ function AuthGate({ onRegister, onLogin, busy, error, clearError, getSecurityQue
 function SelectPills({ label, options, value, onChange }) {
   return (
     <div>
-      {label && <div className="text-[10px] text-[#171E22]/40 mb-1 uppercase tracking-wide">{label}</div>}
+      {label && <div className="text-[10px] text-[#10151F]/40 mb-1 uppercase tracking-wide">{label}</div>}
       <div className="flex gap-1.5 flex-wrap">
         {options.map((t) => {
           const selected = value === t;
@@ -1242,20 +1348,20 @@ function SelectPills({ label, options, value, onChange }) {
               type="button"
               onClick={() => onChange(t)}
               style={selected ? SELECTED_STYLE : undefined}
-              className={`px-3 py-2 text-xs rounded-sm border-2 flex items-center gap-1.5 whitespace-nowrap transition-all ${
+              className={`px-3 py-2 text-xs rounded-none border-2 flex items-center gap-1.5 whitespace-nowrap transition-all ${
                 selected
                   ? "font-semibold shadow-sm"
-                  : "bg-white border-[#C9D6D6] text-[#171E22]/70"
+                  : "bg-white border-[#D7DCE3] text-[#10151F]/70"
               }`}
             >
-              {selected ? <Check size={13} strokeWidth={3} /> : <span className="w-[13px] h-[13px] rounded-full border border-[#C9D6D6] inline-block" />}
+              {selected ? <Check size={13} strokeWidth={3} /> : <span className="w-[13px] h-[13px] rounded-full border border-[#D7DCE3] inline-block" />}
               {t}
             </button>
           );
         })}
       </div>
       {value && (
-        <div className="text-[11px] text-[#0E8C82] font-mono mt-1.5 flex items-center gap-1">
+        <div className="text-[11px] text-[#8A6A2E] font-mono mt-1.5 flex items-center gap-1">
           <Check size={11} strokeWidth={3} /> Selected: {value}
         </div>
       )}
@@ -1269,14 +1375,14 @@ function SelectPills({ label, options, value, onChange }) {
    typical promo carousel. */
 function HeroSlideVisual({ product }) {
   if (product.image) {
-    return <img src={product.image} alt={product.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />;
+    return <img src={product.image} alt={product.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} loading="eager" decoding="async" />;
   }
   return (
     <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 16px" }}>
       <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.35 }} aria-hidden="true">
         <defs>
           <pattern id={`hero-grid-${product.id}`} width="16" height="16" patternUnits="userSpaceOnUse">
-            <path d="M16 0H0V16" fill="none" stroke="#C9D6D6" strokeWidth="0.6" />
+            <path d="M16 0H0V16" fill="none" stroke="#D7DCE3" strokeWidth="0.6" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#hero-grid-${product.id})`} />
@@ -1313,36 +1419,56 @@ function HeroCarousel({ products, heroSelection }) {
   const [index, setIndex] = useState(0);
   useEffect(() => {
     if (slides.length <= 1) return;
-    const t = setInterval(() => setIndex((i) => (i + 1) % slides.length), 2500);
+    const t = setInterval(() => setIndex((i) => (i + 1) % slides.length), 4500);
     return () => clearInterval(t);
   }, [slides.length]);
   useEffect(() => { if (index >= slides.length) setIndex(0); }, [slides.length, index]);
 
-  const frameStyle = { position: "relative", aspectRatio: "4 / 3", backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", borderRadius: "2px", overflow: "hidden" };
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  function onTiltMove(e) {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ x: px * 10, y: -py * 10 });
+  }
 
-  if (slides.length === 0) return <div style={frameStyle} />;
+  const frameStyle = {
+    position: "relative", aspectRatio: "4 / 3", overflow: "hidden",
+    backgroundColor: "rgba(255,255,255,0.68)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+    border: "1px solid rgba(215,220,227,0.9)", borderRadius: "2px",
+    boxShadow: "0 30px 60px -30px rgba(16,21,31,0.45)",
+    transform: `perspective(900px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
+    transition: "transform 0.15s ease-out",
+  };
+
+  if (slides.length === 0) return <div style={{ ...frameStyle, transform: undefined }} />;
 
   return (
-    <div style={frameStyle}>
+    <div style={frameStyle} onMouseMove={onTiltMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })}>
+      <div className="meridian-scan-beam" style={{
+        position: "absolute", left: 0, right: 0, height: "36%",
+        background: "linear-gradient(to bottom, transparent, rgba(138,106,46,0.28), transparent)",
+        animation: "meridianScan 7s ease-in-out infinite", zIndex: 2, mixBlendMode: "multiply", pointerEvents: "none", opacity: 0.6,
+      }} />
       {slides.map((p, i) => (
-        <div key={p.id} style={{ position: "absolute", inset: 0, opacity: i === index ? 1 : 0, transition: "opacity 0.7s ease" }}>
+        <div key={p.id} style={{ position: "absolute", inset: 0, opacity: i === index ? 1 : 0, transition: "opacity 1.1s ease-in-out" }}>
           <HeroSlideVisual product={p} />
           <span style={{ position: "absolute", top: 8, left: 10, fontFamily: "monospace", fontSize: "9px", color: "rgba(35,66,77,0.55)" }}>{p.id}</span>
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "22px 12px 10px", background: "linear-gradient(to top, rgba(23,30,34,0.72), rgba(23,30,34,0))" }}>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "13px", fontWeight: 600, color: "#FFFFFF" }}>{p.name}</div>
+            <div style={{ fontFamily: "'Fraunces', serif", fontSize: "13px", fontWeight: 600, color: "#FFFFFF" }}>{p.name}</div>
             <div style={{ fontFamily: "monospace", fontSize: "9px", color: "rgba(255,255,255,0.75)" }}>{p.cat}</div>
           </div>
         </div>
       ))}
       {slides.length > 1 && (
-        <div style={{ position: "absolute", bottom: 8, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 6 }}>
+        <div style={{ position: "absolute", bottom: 8, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 6, zIndex: 3 }}>
           {slides.map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => setIndex(i)}
               aria-label={`Slide ${i + 1}`}
-              style={{ width: i === index ? 16 : 6, height: 6, borderRadius: 3, backgroundColor: i === index ? "#0E8C82" : "rgba(255,255,255,0.7)", border: "none", padding: 0, cursor: "pointer", transition: "width 0.3s ease" }}
+              style={{ width: i === index ? 16 : 6, height: 6, borderRadius: 3, backgroundColor: i === index ? "#8A6A2E" : "rgba(255,255,255,0.7)", border: "none", padding: 0, cursor: "pointer", transition: "width 0.3s ease" }}
             />
           ))}
         </div>
@@ -1351,32 +1477,260 @@ function HeroCarousel({ products, heroSelection }) {
   );
 }
 
-/* ---------------- Catalog / customer side ---------------- */
+/* ---------------- Marquee / Stats / Trust badges (Cobalt & Brass) ----------------
+   All three are admin-editable via Settings (siteSettings.statsSection,
+   siteSettings.trustBadges) and heroEyebrowBadges — with sensible
+   defaults so the homepage never renders empty on first load. */
+const DEFAULT_STATS = [
+  { value: "15", label: "Years manufacturing" },
+  { value: "150+", label: "SKUs in catalogue" },
+  { value: "500+", label: "Facilities served" },
+  { value: "ISO 13485", label: "Certified manufacturer" },
+];
+const DEFAULT_TRUST_BADGES = [
+  { label: "ISO 13485 Certified", icon: "shield" },
+  { label: "CE Marked", icon: "certificate" },
+  { label: "GMP Compliant", icon: "factory" },
+  { label: "Ti-6Al-4V Grade 5", icon: "material" },
+];
+const TRUST_ICONS = { shield: CheckCircle2, certificate: Tag, factory: Building2, material: Package };
+
+function MarqueeStrip({ text }) {
+  const items = (text && text.length ? text : ["PRECISION ENGINEERED", "ISO 13485 CERTIFIED", "TITANIUM GRADE 5", "DIRECT FROM MANUFACTURER", "GAMMA / ETO STERILIZED"]);
+  const line = items.join("  ·  ");
+  return (
+    <div style={{ borderTop: "1px solid #D7DCE3", borderBottom: "1px solid #D7DCE3", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", overflow: "hidden", padding: "12px 0" }}>
+      <div className="meridian-marquee-track font-mono" style={{ display: "flex", width: "max-content", gap: 48, fontSize: 12, letterSpacing: "0.05em", textTransform: "uppercase", opacity: 0.6, animation: "meridianMarquee 26s linear infinite", whiteSpace: "nowrap" }}>
+        <span>{line}</span>
+        <span>{line}</span>
+      </div>
+    </div>
+  );
+}
+
+function StatTile({ stat }) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  const [display, setDisplay] = useState(0);
+  const numeric = /^\d+$/.test(String(stat.value).replace(/\D/g, "")) && /^\d+\+?$/.test(String(stat.value).trim());
+  const target = numeric ? parseInt(stat.value, 10) : null;
+  const suffix = numeric && String(stat.value).includes("+") ? "+" : "";
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          if (target !== null) {
+            const duration = 1200, start = performance.now();
+            function step(now) {
+              const p = Math.min(1, (now - start) / duration);
+              setDisplay(Math.round(p * target));
+              if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          }
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [target]);
+
+  return (
+    <div ref={ref} style={{
+      backgroundColor: "rgba(255,255,255,0.65)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
+      border: "1px solid #D7DCE3", borderRadius: "2px", padding: "20px 18px", textAlign: "left",
+      opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)", transition: "opacity 0.6s ease, transform 0.6s ease",
+    }}>
+      <div className="font-display" style={{ fontSize: 28, fontWeight: 600, color: "#8A6A2E", lineHeight: 1 }}>
+        {target !== null ? display + suffix : stat.value}
+      </div>
+      <div className="text-xs mt-2" style={{ color: "rgba(16,21,31,0.6)" }}>{stat.label}</div>
+    </div>
+  );
+}
+
+function StatsSection({ stats }) {
+  const list = stats && stats.length > 0 ? stats : DEFAULT_STATS;
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+      {list.map((s, i) => <StatTile key={i} stat={s} />)}
+    </div>
+  );
+}
+
+function TrustBadgesRow({ badges }) {
+  const list = badges && badges.length > 0 ? badges : DEFAULT_TRUST_BADGES;
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-10 flex flex-wrap gap-2.5">
+      {list.map((b, i) => {
+        const Icon = TRUST_ICONS[b.icon] || CheckCircle2;
+        return (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 12, padding: "8px 13px", borderRadius: 100, border: "1px solid #D7DCE3", opacity: 0.85, backgroundColor: "rgba(255,255,255,0.5)" }}>
+            <Icon size={14} style={{ color: "#8A6A2E" }} /> {b.label}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function EyebrowBadges({ badges }) {
+  const list = badges && badges.length > 0 ? badges : [{ text: "Direct from the manufacturer" }];
+  return (
+    <div className="flex flex-wrap gap-2 mb-4">
+      {list.map((b, i) => (
+        <span key={i} className="font-mono" style={{
+          display: "inline-flex", alignItems: "center", gap: 7, fontSize: 10.5, letterSpacing: "0.06em", textTransform: "uppercase",
+          padding: "6px 12px", borderRadius: 100, border: "1px solid #D7DCE3", backgroundColor: "rgba(255,255,255,0.6)", backdropFilter: "blur(6px)", color: "#8A6A2E",
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: "#8A6A2E", boxShadow: "0 0 0 4px rgba(138,106,46,0.2)" }} />
+          {b.text}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ProductCard({ p, inCartQty, setActiveProduct, addToCart, setQty }) {
+  const [spot, setSpot] = useState({ x: "50%", y: "50%" });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  function onMove(e) {
+    const r = e.currentTarget.getBoundingClientRect();
+    setSpot({ x: `${e.clientX - r.left}px`, y: `${e.clientY - r.top}px` });
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ x: px * 6, y: -py * 6 });
+  }
+  function onLeave() { setTilt({ x: 0, y: 0 }); }
+
+  return (
+    <div
+      onMouseMove={onMove} onMouseLeave={onLeave}
+      style={{
+        backgroundColor: "rgba(255,255,255,0.7)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
+        backgroundImage: `radial-gradient(220px circle at ${spot.x} ${spot.y}, rgba(138,106,46,0.08), transparent 70%)`,
+        border: "1px solid #D7DCE3", overflow: "hidden",
+        transform: `perspective(900px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg) translateY(${tilt.x || tilt.y ? -3 : 0}px)`,
+        transition: "transform 0.15s ease-out, box-shadow 0.2s ease, border-color 0.2s ease",
+        boxShadow: tilt.x || tilt.y ? "0 16px 32px -18px rgba(16,21,31,0.35)" : "none",
+      }}
+      className="rounded-none flex flex-col group"
+    >
+      <button onClick={() => setActiveProduct(p)} className="text-left relative overflow-hidden">
+        <div className="transition-transform duration-300 group-hover:scale-105">
+          <ProductThumb product={p} />
+        </div>
+        {inCartQty > 0 && (
+          <span style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="absolute top-1.5 right-2 text-[10px] font-mono px-1.5 py-0.5 rounded-none flex items-center gap-1">
+            <Check size={10} /> In cart
+          </span>
+        )}
+      </button>
+      <div className="p-3.5 flex flex-col gap-2 flex-1">
+        <div>
+          <div className="font-display font-semibold text-sm">{p.name}</div>
+          <div className="text-[11px] text-[#10151F]/50 font-mono mt-0.5">{p.dim}</div>
+        </div>
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="text-[10px] px-1.5 py-0.5 bg-[#F4F5F8] border border-[#D7DCE3] rounded-none text-[#10151F]/70">{p.material}</span>
+          <span className="text-[10px] px-1.5 py-0.5 bg-[#D6E9E7] text-[#0E6B62] rounded-none">{p.sterile}</span>
+        </div>
+        <button onClick={() => setActiveProduct(p)} className="text-[11px] flex items-center gap-1 font-medium" style={{ color: "#8A6A2E" }}>
+          View details <ChevronRight size={12} className="transition-transform duration-200 group-hover:translate-x-1" />
+        </button>
+        <div className="mt-auto pt-2 space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="font-mono font-medium text-sm">{money(p.price)}</div>
+            <div className="text-[10px] text-[#10151F]/40">MOQ {p.moq} {p.moq > 1 ? "units" : "unit"}</div>
+          </div>
+          {inCartQty > 0 ? (
+            <div className="flex items-center justify-between gap-2 bg-[#D6E9E7] rounded-none px-2 py-1.5">
+              <span className="text-[11px] font-medium text-[#0E6B62] flex items-center gap-1"><Check size={12} strokeWidth={3} /> In cart</span>
+              <div className="flex items-center gap-1.5">
+                <button onClick={() => setQty(p.id, inCartQty - p.moq)} className="w-6 h-6 bg-white border border-[#D7DCE3] rounded-none flex items-center justify-center"><Minus size={12} /></button>
+                <span className="font-mono text-xs w-6 text-center">{inCartQty}</span>
+                <button onClick={() => setQty(p.id, inCartQty + p.moq)} className="w-6 h-6 bg-white border border-[#D7DCE3] rounded-none flex items-center justify-center"><Plus size={12} /></button>
+              </div>
+            </div>
+          ) : (
+            <MagneticButton
+              onClick={() => addToCart(p)}
+              style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }}
+              className="w-full text-xs font-semibold px-3 py-2 rounded-none hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5"
+            >
+              <ShoppingCart size={13} /> Add to Cart
+            </MagneticButton>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Subtle "magnetic" hover — nudges toward the cursor within its own bounds. */
+function MagneticButton({ children, style, className, onClick }) {
+  const ref = useRef(null);
+  function onMove(e) {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width / 2) * 0.25;
+    const y = (e.clientY - r.top - r.height / 2) * 0.25;
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  }
+  function onLeave() { if (ref.current) ref.current.style.transform = ""; }
+  return (
+    <button ref={ref} onClick={onClick} onMouseMove={onMove} onMouseLeave={onLeave} style={{ ...style, transition: "transform 0.15s ease-out" }} className={className}>
+      {children}
+    </button>
+  );
+}
 
 function CatalogView({ client, logout, cat, setCat, query, setQuery, sortOrder, setSortOrder, categories, filtered, products, heroSelection, addToCart, setQty, cart, activeProduct, setActiveProduct, closeProduct, cartCount, setCartOpen, goMyOrders, openProfile, siteSettings }) {
+  const [spot, setSpot] = useState({ x: "50%", y: "50%" });
+  function onHeroMove(e) {
+    const r = e.currentTarget.getBoundingClientRect();
+    setSpot({ x: `${e.clientX - r.left}px`, y: `${e.clientY - r.top}px` });
+  }
+  const heroEyebrowBadges = siteSettings && siteSettings.heroEyebrowBadges;
+  const statsSection = siteSettings && siteSettings.statsSection;
+  const trustBadges = siteSettings && siteSettings.trustBadges;
+  const marqueeText = siteSettings && siteSettings.marqueeText;
+
   return (
     <div>
       <TopHeader client={client} logout={logout} cartCount={cartCount} setCartOpen={setCartOpen} goMyOrders={goMyOrders} openProfile={openProfile} />
 
       {/* Hero — blueprint thesis */}
-      <section className="border-b border-[#C9D6D6] bg-[#F6F7F6] overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid sm:grid-cols-2 gap-8 items-center">
-          <div>
-            <div className="font-mono text-[11px] text-[#0E8C82] tracking-widest uppercase mb-3">Direct from the manufacturer</div>
-            <h1 className="font-display text-3xl sm:text-4xl font-semibold leading-tight text-[#171E22]">
-              Implants engineered to spec.<br />Ordered without a middleman.
+      <section onMouseMove={onHeroMove} className="relative border-b border-[#D7DCE3] overflow-hidden" style={{
+        backgroundImage: `radial-gradient(320px circle at ${spot.x} ${spot.y}, rgba(138,106,46,0.12), transparent 70%)`,
+      }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid sm:grid-cols-2 gap-8 items-center relative">
+          <div className="meridian-fade-up">
+            <EyebrowBadges badges={heroEyebrowBadges} />
+            <h1 className="font-display text-3xl sm:text-4xl font-semibold leading-tight text-[#10151F]">
+              <span style={{ background: "linear-gradient(100deg, #8A6A2E, #1E3A5F)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Implants</span> engineered to spec.<br />Ordered without a middleman.
             </h1>
-            <p className="mt-4 text-sm sm:text-base text-[#171E22]/70 max-w-md">
-              Welcome back, {client.name.split(" ")[0]}. Browse our trauma plates, nails, and fixation screws with full technical specs, and order directly — no sales commission built into your price.
+            <p className="mt-4 text-sm sm:text-base text-[#10151F]/70 max-w-md">
+              {client ? `Welcome back, ${client.name.split(" ")[0]}. Browse` : "Browse"} our trauma plates, nails, and fixation screws with full technical specs, and order directly — no sales commission built into your price.
             </p>
-            <div className="mt-6 flex items-center gap-4 text-xs font-mono text-[#171E22]/60">
-              <span className="flex items-center gap-1"><CheckCircle2 size={13} className="text-[#0E8C82]" /> Ti-6Al-4V &amp; 316L stock</span>
-              <span className="flex items-center gap-1"><CheckCircle2 size={13} className="text-[#0E8C82]" /> Gamma / ETO sterilized</span>
+            <div className="mt-6 flex items-center gap-4 text-xs font-mono text-[#10151F]/60">
+              <span className="flex items-center gap-1"><CheckCircle2 size={13} className="text-[#8A6A2E]" /> Ti-6Al-4V &amp; 316L stock</span>
+              <span className="flex items-center gap-1"><CheckCircle2 size={13} className="text-[#8A6A2E]" /> Gamma / ETO sterilized</span>
             </div>
           </div>
           <HeroCarousel products={products} heroSelection={heroSelection} />
         </div>
       </section>
+
+      <MarqueeStrip text={marqueeText} />
+      <StatsSection stats={statsSection} />
+      <TrustBadgesRow badges={trustBadges} />
 
       {/* Filters */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-2 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
@@ -1385,24 +1739,24 @@ function CatalogView({ client, logout, cat, setCat, query, setQuery, sortOrder, 
             {["All", ...categories].map((c) => {
               const selected = cat === c;
               return (
-                <button key={c} type="button" onClick={() => setCat(c)} style={selected ? SELECTED_STYLE : undefined} className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs border-2 flex items-center gap-1 transition-all ${selected ? "font-semibold shadow-sm" : "bg-white text-[#171E22]/70 border-[#C9D6D6] hover:border-[#23424D]/50 font-medium"}`}>
+                <button key={c} type="button" onClick={() => setCat(c)} style={selected ? SELECTED_STYLE : undefined} className={`whitespace-nowrap px-3 py-1.5 rounded-full text-xs border-2 flex items-center gap-1 transition-all ${selected ? "font-semibold shadow-sm" : "bg-white text-[#10151F]/70 border-[#D7DCE3] hover:border-[#1E3A5F]/50 font-medium"}`}>
                     {selected && <Check size={12} strokeWidth={3} />}
                     {c}
                   </button>
               );
             })}
           </div>
-          <div className="text-[11px] text-[#0E8C82] font-mono mt-1">Showing: {cat}</div>
+          <div className="text-[11px] text-[#8A6A2E] font-mono mt-1">Showing: {cat}</div>
         </div>
         <div className="flex items-center gap-2">
-          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} style={{ color: "#171E22" }} aria-label="Sort products" className="text-sm rounded-sm border border-[#C9D6D6] bg-white px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40">
+          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} style={{ color: "#10151F" }} aria-label="Sort products" className="text-sm rounded-none border border-[#D7DCE3] bg-white px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40">
             <option value="default">Sort: Default</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
           </select>
           <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#171E22]/40" />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search product or code…" aria-label="Search products" className="pl-8 pr-3 py-2 text-sm rounded-sm border border-[#C9D6D6] bg-white focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 w-full sm:w-56" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#10151F]/40" />
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search product or code…" aria-label="Search products" className="pl-8 pr-3 py-2 text-sm rounded-none border border-[#D7DCE3] bg-white focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40 w-full sm:w-56" />
           </div>
         </div>
       </div>
@@ -1411,55 +1765,10 @@ function CatalogView({ client, logout, cat, setCat, query, setQuery, sortOrder, 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((p) => {
           const inCartQty = cart[p.id] || 0;
-          return (
-            <div key={p.id} className="bg-white border border-[#C9D6D6] rounded-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col">
-              <button onClick={() => setActiveProduct(p)} className="text-left relative">
-                <ProductThumb product={p} />
-                {inCartQty > 0 && (
-                  <span style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="absolute top-1.5 right-2 text-[10px] font-mono px-1.5 py-0.5 rounded-sm flex items-center gap-1">
-                    <Check size={10} /> In cart
-                  </span>
-                )}
-              </button>
-              <div className="p-3.5 flex flex-col gap-2 flex-1">
-                <div>
-                  <div className="font-display font-semibold text-sm">{p.name}</div>
-                  <div className="text-[11px] text-[#171E22]/50 font-mono mt-0.5">{p.dim}</div>
-                </div>
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-[10px] px-1.5 py-0.5 bg-[#F6F7F6] border border-[#C9D6D6] rounded-sm text-[#171E22]/70">{p.material}</span>
-                  <span className="text-[10px] px-1.5 py-0.5 bg-[#D6E9E7] text-[#0E6B62] rounded-sm">{p.sterile}</span>
-                </div>
-                <div className="mt-auto pt-2 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="font-mono font-medium text-sm">{money(p.price)}</div>
-                    <div className="text-[10px] text-[#171E22]/40">MOQ {p.moq} {p.moq > 1 ? "units" : "unit"}</div>
-                  </div>
-                  {inCartQty > 0 ? (
-                    <div className="flex items-center justify-between gap-2 bg-[#D6E9E7] rounded-sm px-2 py-1.5">
-                      <span className="text-[11px] font-medium text-[#0E6B62] flex items-center gap-1"><Check size={12} strokeWidth={3} /> In cart</span>
-                      <div className="flex items-center gap-1.5">
-                        <button onClick={() => setQty(p.id, inCartQty - p.moq)} className="w-6 h-6 bg-white border border-[#C9D6D6] rounded-sm flex items-center justify-center"><Minus size={12} /></button>
-                        <span className="font-mono text-xs w-6 text-center">{inCartQty}</span>
-                        <button onClick={() => setQty(p.id, inCartQty + p.moq)} className="w-6 h-6 bg-white border border-[#C9D6D6] rounded-sm flex items-center justify-center"><Plus size={12} /></button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => addToCart(p)}
-                      style={{ backgroundColor: "#23424D", color: "#FFFFFF" }}
-                      className="w-full text-xs font-semibold px-3 py-2 rounded-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5"
-                    >
-                      <ShoppingCart size={13} /> Add to Cart
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
+          return <ProductCard key={p.id} p={p} inCartQty={inCartQty} setActiveProduct={setActiveProduct} addToCart={addToCart} setQty={setQty} />;
         })}
         {filtered.length === 0 && (
-          <div className="col-span-full text-center py-16 text-sm text-[#171E22]/50">No products match "{query}".</div>
+          <div className="col-span-full text-center py-16 text-sm text-[#10151F]/50">No products match "{query}".</div>
         )}
       </main>
 
@@ -1478,38 +1787,57 @@ function CatalogView({ client, logout, cat, setCat, query, setQuery, sortOrder, 
 
 function TopHeader({ client, logout, cartCount, setCartOpen, goMyOrders, openProfile }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    function onScroll() { setScrolled(window.scrollY > 8); }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <header style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="sticky top-0 z-30">
+    <header style={{
+      backgroundColor: "rgba(30,58,95,0.85)", color: "#FFFFFF",
+      backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+      boxShadow: scrolled ? "0 8px 30px -14px rgba(0,0,0,0.35)" : "none",
+      transition: "box-shadow 0.3s ease",
+    }} className="sticky top-0 z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-sm border border-white/30 flex items-center justify-center font-mono text-[10px]">OI</div>
+          <div className="w-8 h-8 rounded-none border border-white/30 flex items-center justify-center font-mono text-[10px]">OI</div>
           <div>
             <div className="font-display font-semibold text-sm sm:text-base leading-tight">Meridian Orthopaedics</div>
             <div style={{ color: "rgba(255,255,255,0.6)" }} className="text-[10px] tracking-widest uppercase">Implant Manufacturing</div>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
-          <button onClick={goMyOrders} style={{ color: "rgba(255,255,255,0.85)" }} className="flex items-center gap-1 text-xs hover:text-white transition-colors px-2 py-1.5 rounded-sm hover:bg-white/10">
-            <ListOrdered size={16} /> <span className="hidden sm:inline">My Orders</span>
-          </button>
-          <button onClick={() => setCartOpen(true)} className="relative flex items-center gap-2 bg-[#0E8C82] hover:bg-[#0c7a71] transition-colors px-3 py-2 rounded-sm text-sm font-medium">
+          {client && (
+            <button onClick={goMyOrders} style={{ color: "rgba(255,255,255,0.85)" }} className="flex items-center gap-1 text-xs hover:text-white transition-colors px-2 py-1.5 rounded-none hover:bg-white/10">
+              <ListOrdered size={16} /> <span className="hidden sm:inline">My Orders</span>
+            </button>
+          )}
+          <button onClick={() => setCartOpen(true)} className="relative flex items-center gap-2 bg-[#8A6A2E] hover:bg-[#6F5624] transition-colors px-3 py-2 rounded-none text-sm font-medium">
             <ShoppingCart size={16} />
             <span className="hidden sm:inline">Cart</span>
-            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[#E9E2D0] text-[#171E22] text-[10px] font-mono w-5 h-5 rounded-full flex items-center justify-center">{cartCount}</span>}
+            {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-[#E9E2D0] text-[#10151F] text-[10px] font-mono w-5 h-5 rounded-full flex items-center justify-center">{cartCount}</span>}
           </button>
-          <div className="relative">
-            <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Open profile menu" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center"><User size={14} /></button>
-            {menuOpen && (
-              <div style={{ backgroundColor: "#FFFFFF", color: "#171E22" }} className="absolute right-0 top-10 rounded-sm border border-[#C9D6D6] w-48 py-1 shadow-lg z-40">
-                <div className="px-3 py-2 text-xs border-b border-[#C9D6D6]">
-                  <div className="font-medium truncate">{client.name}</div>
-                  <div style={{ color: "rgba(23,30,34,0.5)" }} className="truncate">{client.email}</div>
+          {client ? (
+            <div className="relative">
+              <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Open profile menu" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center"><User size={14} /></button>
+              {menuOpen && (
+                <div style={{ backgroundColor: "#FFFFFF", color: "#10151F" }} className="absolute right-0 top-10 rounded-none border border-[#D7DCE3] w-48 py-1 shadow-lg z-40">
+                  <div className="px-3 py-2 text-xs border-b border-[#D7DCE3]">
+                    <div className="font-medium truncate">{client.name}</div>
+                    <div style={{ color: "rgba(23,30,34,0.5)" }} className="truncate">{client.email}</div>
+                  </div>
+                  <button onClick={() => { setMenuOpen(false); openProfile(); }} style={{ color: "#10151F" }} className="w-full text-left px-3 py-2 text-xs hover:bg-[#F4F5F8] flex items-center gap-2"><User size={13} /> View Profile</button>
+                  <button onClick={logout} style={{ color: "#DC2626" }} className="w-full text-left px-3 py-2 text-xs hover:bg-[#F4F5F8] flex items-center gap-2 border-t border-[#D7DCE3]"><LogOut size={13} /> Log out</button>
                 </div>
-                <button onClick={() => { setMenuOpen(false); openProfile(); }} style={{ color: "#171E22" }} className="w-full text-left px-3 py-2 text-xs hover:bg-[#F6F7F6] flex items-center gap-2"><User size={13} /> View Profile</button>
-                <button onClick={logout} style={{ color: "#DC2626" }} className="w-full text-left px-3 py-2 text-xs hover:bg-[#F6F7F6] flex items-center gap-2 border-t border-[#C9D6D6]"><LogOut size={13} /> Log out</button>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          ) : (
+            <button onClick={openProfile} style={{ backgroundColor: "rgba(255,255,255,0.12)" }} className="flex items-center gap-1.5 text-xs font-medium hover:bg-white/20 transition-colors px-3 py-2 rounded-none">
+              <User size={14} /> <span>Register / Login</span>
+            </button>
+          )}
         </div>
       </div>
     </header>
@@ -1536,39 +1864,42 @@ const DEFAULT_SITE_SETTINGS = {
   phone: "+92 300 0000000",
   terms: TERMS_TEXT,
   privacy: PRIVACY_TEXT,
+  heroEyebrowBadges: [],
+  statsSection: [],
+  trustBadges: [],
 };
 
 function SiteFooter({ settings }) {
   const [modal, setModal] = useState(null); // "terms" | "privacy" | null
   return (
     <>
-      <footer className="border-t border-[#C9D6D6] mt-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid sm:grid-cols-3 gap-4 text-xs text-[#171E22]/60">
+      <footer className="border-t border-[#D7DCE3] mt-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid sm:grid-cols-3 gap-4 text-xs text-[#10151F]/60">
           <div>
-            <div className="font-display font-semibold text-[#171E22] mb-1">Meridian Orthopaedics</div>
+            <div className="font-display font-semibold text-[#10151F] mb-1">Meridian Orthopaedics</div>
             <div>Implant Manufacturing — direct from the manufacturer.</div>
           </div>
           <div>
-            <div className="font-medium text-[#171E22]/80 mb-1">Contact</div>
+            <div className="font-medium text-[#10151F]/80 mb-1">Contact</div>
             <div className="flex items-center gap-1.5"><Mail size={12} /> {settings.email}</div>
             <div className="flex items-center gap-1.5 mt-0.5"><Phone size={12} /> {settings.phone}</div>
-            <div className="text-[10px] text-[#171E22]/40 mt-1">(editable from Admin → Site Settings)</div>
+            <div className="text-[10px] text-[#10151F]/40 mt-1">(editable from Admin → Site Settings)</div>
           </div>
           <div>
-            <div className="font-medium text-[#171E22]/80 mb-1">Legal</div>
+            <div className="font-medium text-[#10151F]/80 mb-1">Legal</div>
             <button onClick={() => setModal("terms")} className="block hover:underline text-left">Terms &amp; Conditions</button>
             <button onClick={() => setModal("privacy")} className="block hover:underline text-left mt-0.5">Privacy Policy</button>
           </div>
         </div>
-        <div className="border-t border-[#C9D6D6]">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 text-[11px] text-[#171E22]/40">© {new Date().getFullYear()} Meridian Orthopaedics</div>
+        <div className="border-t border-[#D7DCE3]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 text-[11px] text-[#10151F]/40">© {new Date().getFullYear()} Meridian Orthopaedics</div>
         </div>
       </footer>
 
       {modal && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-6" onClick={() => setModal(null)}>
-          <div style={{ maxHeight: "85vh", overflowY: "auto", color: "#171E22" }} className="bg-white w-full sm:max-w-lg sm:rounded-sm rounded-t-lg" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between p-4 border-b border-[#C9D6D6]">
+          <div style={{ maxHeight: "85vh", overflowY: "auto", color: "#10151F" }} className="bg-white w-full sm:max-w-lg sm:rounded-none rounded-t-lg" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-4 border-b border-[#D7DCE3]">
               <div className="font-display font-semibold">{modal === "terms" ? "Terms & Conditions" : "Privacy Policy"}</div>
               <button onClick={() => setModal(null)} aria-label="Close"><X size={18} /></button>
             </div>
@@ -1585,29 +1916,29 @@ function SiteFooter({ settings }) {
 function ProductModal({ product, inCartQty, onClose, onAdd }) {
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-6" onClick={onClose}>
-      <div style={{ maxHeight: "90vh", overflowY: "auto" }} className="bg-white w-full sm:max-w-lg sm:rounded-sm rounded-t-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-4 border-b border-[#C9D6D6]">
-          <span className="font-mono text-xs text-[#171E22]/50">{product.id}</span>
+      <div style={{ maxHeight: "90vh", overflowY: "auto" }} className="bg-white w-full sm:max-w-lg sm:rounded-none rounded-t-lg overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-4 border-b border-[#D7DCE3]">
+          <span className="font-mono text-xs text-[#10151F]/50">{product.id}</span>
           <button onClick={onClose}><X size={18} /></button>
         </div>
         <ProductThumb product={product} />
         <div className="p-5 space-y-3">
           <div>
             <div className="font-display font-semibold text-lg">{product.name}</div>
-            <div className="text-xs text-[#171E22]/50">{product.cat}</div>
+            <div className="text-xs text-[#10151F]/50">{product.cat}</div>
           </div>
           <dl className="text-sm grid grid-cols-2 gap-y-2">
-            <dt className="text-[#171E22]/50">Material</dt><dd className="font-medium">{product.material}</dd>
-            <dt className="text-[#171E22]/50">Dimensions</dt><dd className="font-mono">{product.dim}</dd>
-            <dt className="text-[#171E22]/50">Sterilization</dt><dd>{product.sterile}</dd>
-            <dt className="text-[#171E22]/50">Minimum order</dt><dd>{product.moq} units</dd>
+            <dt className="text-[#10151F]/50">Material</dt><dd className="font-medium">{product.material}</dd>
+            <dt className="text-[#10151F]/50">Dimensions</dt><dd className="font-mono">{product.dim}</dd>
+            <dt className="text-[#10151F]/50">Sterilization</dt><dd>{product.sterile}</dd>
+            <dt className="text-[#10151F]/50">Minimum order</dt><dd>{product.moq} units</dd>
           </dl>
-          <div className="flex items-center justify-between pt-2 border-t border-[#C9D6D6]">
+          <div className="flex items-center justify-between pt-2 border-t border-[#D7DCE3]">
             <div className="font-mono font-semibold text-lg">{money(product.price)}</div>
             {inCartQty > 0 ? (
-              <span className="text-sm text-[#0E8C82] font-medium flex items-center gap-1"><Check size={14} /> {inCartQty} in cart</span>
+              <span className="text-sm text-[#8A6A2E] font-medium flex items-center gap-1"><Check size={14} /> {inCartQty} in cart</span>
             ) : (
-              <button onClick={() => onAdd(product)} style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="px-4 py-2 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5">
+              <button onClick={() => onAdd(product)} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="px-4 py-2 rounded-none text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-1.5">
                 <ShoppingCart size={14} /> Add to cart
               </button>
             )}
@@ -1622,35 +1953,35 @@ function CartDrawer({ cartItems, cartTotal, setQty, onClose, onCheckout }) {
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex justify-end" onClick={onClose}>
       <div className="bg-white w-full sm:w-[380px] h-full flex flex-col" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-4 border-b border-[#C9D6D6]">
+        <div className="flex items-center justify-between p-4 border-b border-[#D7DCE3]">
           <div className="font-display font-semibold flex items-center gap-2"><ShoppingCart size={16} /> Your cart</div>
           <button onClick={onClose}><X size={18} /></button>
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {cartItems.length === 0 && <div className="text-sm text-[#171E22]/50 text-center py-10">Cart is empty.</div>}
+          {cartItems.length === 0 && <div className="text-sm text-[#10151F]/50 text-center py-10">Cart is empty.</div>}
           {cartItems.map(({ product, qty }) => (
-            <div key={product.id} className="flex gap-3 border border-[#C9D6D6] rounded-sm p-2.5">
+            <div key={product.id} className="flex gap-3 border border-[#D7DCE3] rounded-none p-2.5">
               <div className="w-14 h-14 shrink-0"><ProductThumb product={product} /></div>
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium truncate">{product.name}</div>
-                <div className="font-mono text-xs text-[#171E22]/50">{money(product.price)} · MOQ {product.moq}</div>
+                <div className="font-mono text-xs text-[#10151F]/50">{money(product.price)} · MOQ {product.moq}</div>
                 <div className="flex items-center gap-2 mt-1.5">
-                  <button onClick={() => setQty(product.id, qty - product.moq)} className="w-6 h-6 border border-[#C9D6D6] rounded-sm flex items-center justify-center"><Minus size={12} /></button>
+                  <button onClick={() => setQty(product.id, qty - product.moq)} className="w-6 h-6 border border-[#D7DCE3] rounded-none flex items-center justify-center"><Minus size={12} /></button>
                   <span className="font-mono text-sm w-8 text-center">{qty}</span>
-                  <button onClick={() => setQty(product.id, qty + product.moq)} className="w-6 h-6 border border-[#C9D6D6] rounded-sm flex items-center justify-center"><Plus size={12} /></button>
-                  <button onClick={() => setQty(product.id, 0)} className="ml-auto text-[#171E22]/40 hover:text-red-500"><Trash2 size={14} /></button>
+                  <button onClick={() => setQty(product.id, qty + product.moq)} className="w-6 h-6 border border-[#D7DCE3] rounded-none flex items-center justify-center"><Plus size={12} /></button>
+                  <button onClick={() => setQty(product.id, 0)} className="ml-auto text-[#10151F]/40 hover:text-red-500"><Trash2 size={14} /></button>
                 </div>
               </div>
             </div>
           ))}
         </div>
         {cartItems.length > 0 && (
-          <div className="p-4 border-t border-[#C9D6D6] space-y-3">
+          <div className="p-4 border-t border-[#D7DCE3] space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-[#171E22]/60">Total</span>
+              <span className="text-[#10151F]/60">Total</span>
               <span className="font-mono font-semibold text-base">{money(cartTotal)}</span>
             </div>
-            <button onClick={onCheckout} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-2.5 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity">
+            <button onClick={onCheckout} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-full py-2.5 rounded-none text-sm font-medium hover:opacity-90 transition-opacity">
               Proceed to order
             </button>
           </div>
@@ -1668,27 +1999,27 @@ function CheckoutModal({ client, cartItems, cartTotal, setQty, onClose, onSubmit
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-6" onClick={onClose}>
-      <div style={{ maxHeight: "92vh", overflowY: "auto" }} className="bg-white w-full sm:max-w-lg sm:rounded-sm rounded-t-lg" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-4 border-b border-[#C9D6D6]">
+      <div style={{ maxHeight: "92vh", overflowY: "auto" }} className="bg-white w-full sm:max-w-lg sm:rounded-none rounded-t-lg" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-4 border-b border-[#D7DCE3]">
           <div className="font-display font-semibold flex items-center gap-2"><ClipboardList size={16} /> Review &amp; confirm order</div>
           <button onClick={onClose}><X size={18} /></button>
         </div>
         <div className="p-4 space-y-3">
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1.5">Your items — adjust quantity or remove before confirming</div>
-            <div className="border border-[#C9D6D6] rounded-sm divide-y divide-[#C9D6D6] max-h-64 overflow-y-auto">
-              {empty && <div className="p-4 text-xs text-center text-[#171E22]/50">Your cart is empty.</div>}
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1.5">Your items — adjust quantity or remove before confirming</div>
+            <div className="border border-[#D7DCE3] rounded-none divide-y divide-[#D7DCE3] max-h-64 overflow-y-auto">
+              {empty && <div className="p-4 text-xs text-center text-[#10151F]/50">Your cart is empty.</div>}
               {cartItems.map(({ product, qty }) => (
                 <div key={product.id} className="flex items-center gap-2 p-2.5">
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-medium truncate">{product.name}</div>
-                    <div className="font-mono text-[11px] text-[#171E22]/50">{product.id} · {money(product.price)} each</div>
+                    <div className="font-mono text-[11px] text-[#10151F]/50">{product.id} · {money(product.price)} each</div>
                   </div>
-                  <button onClick={() => setQty(product.id, qty - product.moq)} className="w-6 h-6 border border-[#C9D6D6] rounded-sm flex items-center justify-center shrink-0"><Minus size={12} /></button>
+                  <button onClick={() => setQty(product.id, qty - product.moq)} className="w-6 h-6 border border-[#D7DCE3] rounded-none flex items-center justify-center shrink-0"><Minus size={12} /></button>
                   <span className="font-mono text-xs w-6 text-center shrink-0">{qty}</span>
-                  <button onClick={() => setQty(product.id, qty + product.moq)} className="w-6 h-6 border border-[#C9D6D6] rounded-sm flex items-center justify-center shrink-0"><Plus size={12} /></button>
+                  <button onClick={() => setQty(product.id, qty + product.moq)} className="w-6 h-6 border border-[#D7DCE3] rounded-none flex items-center justify-center shrink-0"><Plus size={12} /></button>
                   <span className="font-mono text-xs w-20 text-right shrink-0">{money(product.price * qty)}</span>
-                  <button onClick={() => setQty(product.id, 0)} className="text-[#171E22]/40 hover:text-red-500 shrink-0"><Trash2 size={14} /></button>
+                  <button onClick={() => setQty(product.id, 0)} className="text-[#10151F]/40 hover:text-red-500 shrink-0"><Trash2 size={14} /></button>
                 </div>
               ))}
             </div>
@@ -1699,23 +2030,23 @@ function CheckoutModal({ client, cartItems, cartTotal, setQty, onClose, onSubmit
             )}
           </div>
 
-          <div className="border border-[#C9D6D6] rounded-sm p-3 text-xs space-y-0.5">
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1">Delivering to</div>
+          <div className="border border-[#D7DCE3] rounded-none p-3 text-xs space-y-0.5">
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1">Delivering to</div>
             <div className="font-medium text-sm">{client.name} · {client.type}</div>
             {client.facility && <div>{client.facility}</div>}
             <div className="font-mono">{client.phone}</div>
             <div>{client.address}, {client.city}</div>
           </div>
 
-          <textarea placeholder="Order notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full text-sm border border-[#C9D6D6] rounded-sm p-2.5 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" rows={2} />
+          <textarea placeholder="Order notes (optional)" value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full text-sm border border-[#D7DCE3] rounded-none p-2.5 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" rows={2} />
 
-          <div className="bg-[#D6E9E7] text-[#0E6B62] text-xs rounded-sm p-2.5">Payment: Cash on Delivery or Bank Transfer — our team will confirm details by phone after you place the order. You can cancel this order from "My Orders" any time before it's confirmed.</div>
+          <div className="bg-[#D6E9E7] text-[#0E6B62] text-xs rounded-none p-2.5">Payment: Cash on Delivery or Bank Transfer — our team will confirm details by phone after you place the order. You can cancel this order from "My Orders" any time before it's confirmed.</div>
 
           <button
             disabled={disabled}
             onClick={async () => { setSubmitting(true); await onSubmit({ notes }); setSubmitting(false); }}
-            style={!disabled ? { backgroundColor: "#0E8C82", color: "#FFFFFF" } : undefined}
-            className={`w-full py-2.5 rounded-sm text-sm font-medium transition-colors ${disabled ? "bg-[#F6F7F6] text-[#171E22]/40" : "hover:opacity-90"}`}
+            style={!disabled ? { backgroundColor: "#8A6A2E", color: "#FFFFFF" } : undefined}
+            className={`w-full py-2.5 rounded-none text-sm font-medium transition-colors ${disabled ? "bg-[#F4F5F8] text-[#10151F]/40" : "hover:opacity-90"}`}
           >
             {empty ? "Cart is empty" : submitting ? "Placing order…" : "Confirm & place order"}
           </button>
@@ -1730,10 +2061,10 @@ function Field({ icon: Icon, ...props }) {
   const isPassword = props.type === "password";
   return (
     <div className="relative">
-      <Icon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#171E22]/35" />
-      <input {...props} type={isPassword && show ? "text" : props.type} onChange={(e) => props.onChange(e.target.value)} className={`w-full pl-8 ${isPassword ? "pr-9" : "pr-3"} py-2.5 text-sm border rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 ${props.disabled ? "bg-[#F6F7F6] text-[#171E22]/40 border-[#C9D6D6]" : "border-[#C9D6D6]"}`} />
+      <Icon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#10151F]/35" />
+      <input {...props} type={isPassword && show ? "text" : props.type} onChange={(e) => props.onChange(e.target.value)} className={`w-full pl-8 ${isPassword ? "pr-9" : "pr-3"} py-2.5 text-sm border rounded-none focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40 ${props.disabled ? "bg-[#F4F5F8] text-[#10151F]/40 border-[#D7DCE3]" : "border-[#D7DCE3]"}`} />
       {isPassword && (
-        <button type="button" onClick={() => setShow((s) => !s)} tabIndex={-1} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#171E22]/40 hover:text-[#171E22]/70">
+        <button type="button" onClick={() => setShow((s) => !s)} tabIndex={-1} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#10151F]/40 hover:text-[#10151F]/70">
           {show ? <EyeOff size={14} /> : <Eye size={14} />}
         </button>
       )}
@@ -1746,7 +2077,7 @@ function BarePasswordInput({ className, ...props }) {
   return (
     <div className="relative">
       <input {...props} type={show ? "text" : "password"} className={`${className} pr-9`} />
-      <button type="button" onClick={() => setShow((s) => !s)} tabIndex={-1} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#171E22]/40 hover:text-[#171E22]/70">
+      <button type="button" onClick={() => setShow((s) => !s)} tabIndex={-1} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#10151F]/40 hover:text-[#10151F]/70">
         {show ? <EyeOff size={14} /> : <Eye size={14} />}
       </button>
     </div>
@@ -1756,17 +2087,17 @@ function BarePasswordInput({ className, ...props }) {
 function OrderConfirmModal({ order, onClose, onViewOrders }) {
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-6" onClick={onClose}>
-      <div className="bg-white max-w-sm w-full rounded-sm p-6 text-center" onClick={(e) => e.stopPropagation()}>
+      <div className="bg-white max-w-sm w-full rounded-none p-6 text-center" onClick={(e) => e.stopPropagation()}>
         <div className="w-12 h-12 mx-auto rounded-full bg-[#D6E9E7] flex items-center justify-center mb-3">
-          <CheckCircle2 className="text-[#0E8C82]" size={24} />
+          <CheckCircle2 className="text-[#8A6A2E]" size={24} />
         </div>
         <div className="font-display font-semibold text-lg">Order placed</div>
-        <div className="font-mono text-xs text-[#171E22]/50 mt-1">{order.orderId}</div>
-        <p className="text-sm text-[#171E22]/60 mt-3">Our team will call to confirm and arrange Cash on Delivery / Bank Transfer. You can cancel anytime before it's confirmed, from My Orders.</p>
+        <div className="font-mono text-xs text-[#10151F]/50 mt-1">{order.orderId}</div>
+        <p className="text-sm text-[#10151F]/60 mt-3">Our team will call to confirm and arrange Cash on Delivery / Bank Transfer. You can cancel anytime before it's confirmed, from My Orders.</p>
         {order.saveFailed && <p className="text-xs text-amber-600 mt-2">Note: order recorded locally — please also share your order ID directly with our team.</p>}
         <div className="flex gap-2 mt-5">
-          <button onClick={onClose} className="flex-1 py-2.5 border border-[#C9D6D6] rounded-sm text-sm font-medium">Close</button>
-          <button onClick={onViewOrders} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="flex-1 py-2.5 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity">View my orders</button>
+          <button onClick={onClose} className="flex-1 py-2.5 border border-[#D7DCE3] rounded-none text-sm font-medium">Close</button>
+          <button onClick={onViewOrders} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="flex-1 py-2.5 rounded-none text-sm font-medium hover:opacity-90 transition-opacity">View my orders</button>
         </div>
       </div>
     </div>
@@ -1818,8 +2149,8 @@ function ProfileModal({ client, orderCount, onClose, onSave, onChangePassword, o
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-6" onClick={onClose}>
-      <div style={{ maxHeight: "92vh", overflowY: "auto", backgroundColor: "#FFFFFF", color: "#171E22" }} className="w-full sm:max-w-lg sm:rounded-sm rounded-t-lg" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-4 border-b border-[#C9D6D6]">
+      <div style={{ maxHeight: "92vh", overflowY: "auto", backgroundColor: "#FFFFFF", color: "#10151F" }} className="w-full sm:max-w-lg sm:rounded-none rounded-t-lg" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-4 border-b border-[#D7DCE3]">
           <div className="font-display font-semibold flex items-center gap-2">
             <User size={16} />
             {mode === "view" ? "My Profile" : mode === "edit" ? "Edit Profile" : "Change Password"}
@@ -1830,13 +2161,13 @@ function ProfileModal({ client, orderCount, onClose, onSave, onChangePassword, o
         {mode === "view" && (
           <div className="p-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-12 h-12 rounded-full flex items-center justify-center font-display font-semibold text-lg shrink-0">
+              <div style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-12 h-12 rounded-full flex items-center justify-center font-display font-semibold text-lg shrink-0">
                 {client.name?.[0]?.toUpperCase() || "?"}
               </div>
               <div className="min-w-0">
                 <div className="font-display font-semibold text-base truncate">{client.name}</div>
                 <div style={{ color: "rgba(23,30,34,0.5)" }} className="text-xs flex items-center gap-1.5 flex-wrap mt-0.5">
-                  <span style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-[10px] px-1.5 py-0.5 rounded-sm">{client.type}</span>
+                  <span style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-[10px] px-1.5 py-0.5 rounded-none">{client.type}</span>
                   {client.createdAt && <span>Client since {new Date(client.createdAt).toLocaleDateString("en-PK", { month: "short", year: "numeric" })}</span>}
                 </div>
               </div>
@@ -1847,7 +2178,7 @@ function ProfileModal({ client, orderCount, onClose, onSave, onChangePassword, o
               <StatCard label="Account type" value={client.type} />
             </div>
 
-            <div className="border border-[#C9D6D6] rounded-sm divide-y divide-[#C9D6D6]">
+            <div className="border border-[#D7DCE3] rounded-none divide-y divide-[#D7DCE3]">
               <ProfileRow icon={Mail} label="Email" value={client.email} />
               <ProfileRow icon={Phone} label="Phone" value={client.phone} />
               {client.facility && <ProfileRow icon={Building2} label="Facility / Business" value={client.facility} />}
@@ -1857,14 +2188,14 @@ function ProfileModal({ client, orderCount, onClose, onSave, onChangePassword, o
             </div>
 
             <div className="flex gap-2">
-              <button onClick={() => { setForm({ name: client.name, type: client.type, facility: client.facility || "", license: client.license || "", phone: client.phone, city: client.city, address: client.address }); setError(""); setMode("edit"); }} style={{ color: "#171E22" }} className="flex-1 py-2.5 border border-[#C9D6D6] rounded-sm text-sm font-medium hover:bg-[#F6F7F6] transition-colors">
+              <button onClick={() => { setForm({ name: client.name, type: client.type, facility: client.facility || "", license: client.license || "", phone: client.phone, city: client.city, address: client.address }); setError(""); setMode("edit"); }} style={{ color: "#10151F" }} className="flex-1 py-2.5 border border-[#D7DCE3] rounded-none text-sm font-medium hover:bg-[#F4F5F8] transition-colors">
                 Edit Details
               </button>
-              <button onClick={() => { setPwForm({ current: "", next: "", confirm: "" }); setPwError(""); setPwSuccess(false); setMode("password"); }} style={{ color: "#171E22" }} className="flex-1 py-2.5 border border-[#C9D6D6] rounded-sm text-sm font-medium hover:bg-[#F6F7F6] transition-colors flex items-center justify-center gap-1.5">
+              <button onClick={() => { setPwForm({ current: "", next: "", confirm: "" }); setPwError(""); setPwSuccess(false); setMode("password"); }} style={{ color: "#10151F" }} className="flex-1 py-2.5 border border-[#D7DCE3] rounded-none text-sm font-medium hover:bg-[#F4F5F8] transition-colors flex items-center justify-center gap-1.5">
                 <Lock size={13} /> Change Password
               </button>
             </div>
-            <button onClick={onLogout} style={{ color: "#DC2626" }} className="w-full py-2.5 rounded-sm text-sm font-medium border border-red-200 hover:bg-red-50 transition-colors flex items-center justify-center gap-1.5">
+            <button onClick={onLogout} style={{ color: "#DC2626" }} className="w-full py-2.5 rounded-none text-sm font-medium border border-red-200 hover:bg-red-50 transition-colors flex items-center justify-center gap-1.5">
               <LogOut size={13} /> Log out
             </button>
           </div>
@@ -1882,12 +2213,12 @@ function ProfileModal({ client, orderCount, onClose, onSave, onChangePassword, o
             <Field icon={MapPin} placeholder="Full address" value={form.address} onChange={(v) => setForm({ ...form, address: v })} />
             {error && <div className="text-xs text-red-500">{error}</div>}
             <div className="flex gap-2 pt-1">
-              <button onClick={() => setMode("view")} style={{ color: "#171E22" }} className="flex-1 py-2.5 border border-[#C9D6D6] rounded-sm text-sm font-medium">Cancel</button>
+              <button onClick={() => setMode("view")} style={{ color: "#10151F" }} className="flex-1 py-2.5 border border-[#D7DCE3] rounded-none text-sm font-medium">Cancel</button>
               <button
                 disabled={!canSaveEdit || saving}
                 onClick={handleSave}
-                style={canSaveEdit && !saving ? { backgroundColor: "#0E8C82", color: "#FFFFFF" } : { backgroundColor: "#F6F7F6", color: "rgba(23,30,34,0.4)" }}
-                className="flex-1 py-2.5 rounded-sm text-sm font-semibold transition-colors hover:opacity-90"
+                style={canSaveEdit && !saving ? { backgroundColor: "#8A6A2E", color: "#FFFFFF" } : { backgroundColor: "#F4F5F8", color: "rgba(23,30,34,0.4)" }}
+                className="flex-1 py-2.5 rounded-none text-sm font-semibold transition-colors hover:opacity-90"
               >
                 {saving ? "Saving…" : "Save changes"}
               </button>
@@ -1899,19 +2230,19 @@ function ProfileModal({ client, orderCount, onClose, onSave, onChangePassword, o
         {mode === "password" && (
           <div className="p-4 space-y-3">
             {pwSuccess && (
-              <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Password updated successfully.</div>
+              <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Password updated successfully.</div>
             )}
             <Field icon={Lock} type="password" placeholder="Current password" value={pwForm.current} onChange={(v) => setPwForm({ ...pwForm, current: v })} />
             <Field icon={Lock} type="password" placeholder="New password (4+ characters)" value={pwForm.next} onChange={(v) => setPwForm({ ...pwForm, next: v })} />
             <Field icon={Lock} type="password" placeholder="Confirm new password" value={pwForm.confirm} onChange={(v) => setPwForm({ ...pwForm, confirm: v })} />
             {pwError && <div className="text-xs text-red-500">{pwError}</div>}
             <div className="flex gap-2 pt-1">
-              <button onClick={() => setMode("view")} style={{ color: "#171E22" }} className="flex-1 py-2.5 border border-[#C9D6D6] rounded-sm text-sm font-medium">Back</button>
+              <button onClick={() => setMode("view")} style={{ color: "#10151F" }} className="flex-1 py-2.5 border border-[#D7DCE3] rounded-none text-sm font-medium">Back</button>
               <button
                 disabled={saving}
                 onClick={handleChangePassword}
-                style={!saving ? { backgroundColor: "#23424D", color: "#FFFFFF" } : { backgroundColor: "#F6F7F6", color: "rgba(23,30,34,0.4)" }}
-                className="flex-1 py-2.5 rounded-sm text-sm font-semibold transition-colors hover:opacity-90"
+                style={!saving ? { backgroundColor: "#1E3A5F", color: "#FFFFFF" } : { backgroundColor: "#F4F5F8", color: "rgba(23,30,34,0.4)" }}
+                className="flex-1 py-2.5 rounded-none text-sm font-semibold transition-colors hover:opacity-90"
               >
                 {saving ? "Updating…" : "Update password"}
               </button>
@@ -1943,42 +2274,42 @@ function MyOrdersView({ client, orders, loading, onCancel, goCatalog, logout, ca
     <div className="min-h-screen">
       <TopHeader client={client} logout={logout} cartCount={cartCount} setCartOpen={setCartOpen} goMyOrders={goMyOrders} openProfile={openProfile} />
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
-        <button onClick={goCatalog} className="flex items-center gap-1 text-xs text-[#171E22]/50 mb-4"><ArrowLeft size={13} /> Back to store</button>
+        <button onClick={goCatalog} className="flex items-center gap-1 text-xs text-[#10151F]/50 mb-4"><ArrowLeft size={13} /> Back to store</button>
         <div className="font-display font-semibold text-xl mb-1 flex items-center gap-2"><ListOrdered size={18} /> My Orders</div>
-        <p className="text-sm text-[#171E22]/50 mb-5">Track your orders, or cancel one before it's confirmed.</p>
+        <p className="text-sm text-[#10151F]/50 mb-5">Track your orders, or cancel one before it's confirmed.</p>
 
-        {loading && <div className="text-sm text-[#171E22]/50 py-10 text-center">Loading your orders…</div>}
+        {loading && <div className="text-sm text-[#10151F]/50 py-10 text-center">Loading your orders…</div>}
         {!loading && orders.length === 0 && (
-          <div className="text-sm text-[#171E22]/50 py-16 text-center border border-dashed border-[#C9D6D6] rounded-sm">You haven't placed any orders yet.</div>
+          <div className="text-sm text-[#10151F]/50 py-16 text-center border border-dashed border-[#D7DCE3] rounded-none">You haven't placed any orders yet.</div>
         )}
 
         <div className="space-y-3">
           {orders.map((o) => {
             const Icon = STATUS_ICON[o.status];
             return (
-              <div key={o.orderId} className="bg-white border border-[#C9D6D6] rounded-sm p-4">
+              <div key={o.orderId} className="bg-white border border-[#D7DCE3] rounded-none p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <div className={`w-8 h-8 rounded-sm flex items-center justify-center ${STATUS_COLOR[o.status]}`}><Icon size={14} /></div>
+                    <div className={`w-8 h-8 rounded-none flex items-center justify-center ${STATUS_COLOR[o.status]}`}><Icon size={14} /></div>
                     <div>
-                      <div className="font-mono text-xs text-[#171E22]/50">{o.orderId}</div>
-                      <div className="text-[10px] text-[#171E22]/40">{new Date(o.ts).toLocaleString()}</div>
+                      <div className="font-mono text-xs text-[#10151F]/50">{o.orderId}</div>
+                      <div className="text-[10px] text-[#10151F]/40">{new Date(o.ts).toLocaleString()}</div>
                     </div>
                   </div>
                   <span className={`text-[11px] px-2 py-0.5 rounded-full ${STATUS_COLOR[o.status]}`}>{o.status}</span>
                 </div>
-                <div className="text-xs font-mono space-y-0.5 border-t border-[#C9D6D6] pt-2 mt-2">
+                <div className="text-xs font-mono space-y-0.5 border-t border-[#D7DCE3] pt-2 mt-2">
                   {o.items.map((it) => (
                     <div key={it.id} className="flex justify-between"><span>{it.id} × {it.qty}</span><span>{money(it.price * it.qty)}</span></div>
                   ))}
-                  <div className="flex justify-between font-semibold pt-1 border-t border-[#C9D6D6] mt-1"><span>Total</span><span>{money(o.total)}</span></div>
+                  <div className="flex justify-between font-semibold pt-1 border-t border-[#D7DCE3] mt-1"><span>Total</span><span>{money(o.total)}</span></div>
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <button onClick={() => printOrderInvoice(o)} className="flex-1 py-2 border border-[#C9D6D6] rounded-sm text-xs font-medium hover:bg-[#F6F7F6] transition-colors flex items-center justify-center gap-1.5">
+                  <button onClick={() => printOrderInvoice(o)} className="flex-1 py-2 border border-[#D7DCE3] rounded-none text-xs font-medium hover:bg-[#F4F5F8] transition-colors flex items-center justify-center gap-1.5">
                     <Printer size={13} /> Print
                   </button>
                   {o.status === "Pending" && (
-                    <button onClick={() => setConfirmCancel(o.orderId)} className="flex-1 py-2 border border-red-200 text-red-500 rounded-sm text-xs font-medium hover:bg-red-50 transition-colors flex items-center justify-center gap-1.5">
+                    <button onClick={() => setConfirmCancel(o.orderId)} className="flex-1 py-2 border border-red-200 text-red-500 rounded-none text-xs font-medium hover:bg-red-50 transition-colors flex items-center justify-center gap-1.5">
                       <XCircle size={13} /> Cancel
                     </button>
                   )}
@@ -1993,12 +2324,12 @@ function MyOrdersView({ client, orders, loading, onCancel, goCatalog, logout, ca
 
       {confirmCancel && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-6" onClick={() => setConfirmCancel(null)}>
-          <div style={{ color: "#171E22" }} className="bg-white max-w-xs w-full rounded-sm p-5" onClick={(e) => e.stopPropagation()}>
+          <div style={{ color: "#10151F" }} className="bg-white max-w-xs w-full rounded-none p-5" onClick={(e) => e.stopPropagation()}>
             <div className="font-display font-semibold text-base mb-1">Cancel this order?</div>
-            <p className="text-xs text-[#171E22]/50 mb-4">This can't be undone. You'll need to place a new order if you change your mind.</p>
+            <p className="text-xs text-[#10151F]/50 mb-4">This can't be undone. You'll need to place a new order if you change your mind.</p>
             <div className="flex gap-2">
-              <button onClick={() => setConfirmCancel(null)} style={{ color: "#171E22" }} className="flex-1 py-2 border border-[#C9D6D6] rounded-sm text-xs font-medium">Keep order</button>
-              <button onClick={() => { onCancel(confirmCancel); setConfirmCancel(null); }} style={{ backgroundColor: "#DC2626", color: "#FFFFFF" }} className="flex-1 py-2 rounded-sm text-xs font-semibold">Cancel order</button>
+              <button onClick={() => setConfirmCancel(null)} style={{ color: "#10151F" }} className="flex-1 py-2 border border-[#D7DCE3] rounded-none text-xs font-medium">Keep order</button>
+              <button onClick={() => { onCancel(confirmCancel); setConfirmCancel(null); }} style={{ backgroundColor: "#DC2626", color: "#FFFFFF" }} className="flex-1 py-2 rounded-none text-xs font-semibold">Cancel order</button>
             </div>
           </div>
         </div>
@@ -2052,25 +2383,25 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
       return (
         <div className="min-h-screen flex items-center justify-center p-6">
           <div className="max-w-sm w-full">
-            <button onClick={() => { setGateMode("login"); setIssuedCode(null); setRecoverError(""); }} className="flex items-center gap-1 text-xs text-[#171E22]/50 mb-6"><ArrowLeft size={13} /> Back to passcode entry</button>
-            <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-10 h-10 rounded-sm flex items-center justify-center mb-4"><Lock size={16} /></div>
+            <button onClick={() => { setGateMode("login"); setIssuedCode(null); setRecoverError(""); }} className="flex items-center gap-1 text-xs text-[#10151F]/50 mb-6"><ArrowLeft size={13} /> Back to passcode entry</button>
+            <div style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-10 h-10 rounded-none flex items-center justify-center mb-4"><Lock size={16} /></div>
             <div className="font-display font-semibold text-xl mb-1">Recover admin access</div>
 
             {issuedCode ? (
               <div className="space-y-3">
-                <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Passcode reset. Save your new recovery code below — it won't be shown again.</div>
-                <div className="border-2 border-dashed border-[#C9D6D6] rounded-sm p-4 text-center font-mono text-lg tracking-wider">{issuedCode}</div>
-                <button onClick={() => { navigator.clipboard?.writeText(issuedCode); }} className="w-full py-2 border border-[#C9D6D6] rounded-sm text-xs font-medium hover:bg-[#F6F7F6]">Copy code</button>
-                <button onClick={() => { setGateMode("login"); setIssuedCode(null); setRecoveryCode(""); setNewPasscode(""); setConfirmPasscode(""); }} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-2.5 rounded-sm text-sm font-medium hover:opacity-90">Continue to login</button>
+                <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Passcode reset. Save your new recovery code below — it won't be shown again.</div>
+                <div className="border-2 border-dashed border-[#D7DCE3] rounded-none p-4 text-center font-mono text-lg tracking-wider">{issuedCode}</div>
+                <button onClick={() => { navigator.clipboard?.writeText(issuedCode); }} className="w-full py-2 border border-[#D7DCE3] rounded-none text-xs font-medium hover:bg-[#F4F5F8]">Copy code</button>
+                <button onClick={() => { setGateMode("login"); setIssuedCode(null); setRecoveryCode(""); setNewPasscode(""); setConfirmPasscode(""); }} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-full py-2.5 rounded-none text-sm font-medium hover:opacity-90">Continue to login</button>
               </div>
             ) : (
               <>
-                <p className="text-sm text-[#171E22]/50 mb-4">Enter your recovery code and choose a new passcode.</p>
-                <input value={recoveryCode} onChange={(e) => setRecoveryCode(e.target.value)} placeholder="Recovery code (e.g. ABCD-1234-EFGH)" aria-label="Recovery code" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 font-mono focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
-                <BarePasswordInput value={newPasscode} onChange={(e) => setNewPasscode(e.target.value)} placeholder="New passcode" aria-label="New passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
-                <BarePasswordInput value={confirmPasscode} onChange={(e) => setConfirmPasscode(e.target.value)} placeholder="Confirm new passcode" aria-label="Confirm new passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
+                <p className="text-sm text-[#10151F]/50 mb-4">Enter your recovery code and choose a new passcode.</p>
+                <input value={recoveryCode} onChange={(e) => setRecoveryCode(e.target.value)} placeholder="Recovery code (e.g. ABCD-1234-EFGH)" aria-label="Recovery code" className="w-full px-3 py-2.5 text-sm border border-[#D7DCE3] rounded-none mb-2 font-mono focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" />
+                <BarePasswordInput value={newPasscode} onChange={(e) => setNewPasscode(e.target.value)} placeholder="New passcode" aria-label="New passcode" className="w-full px-3 py-2.5 text-sm border border-[#D7DCE3] rounded-none mb-2 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" />
+                <BarePasswordInput value={confirmPasscode} onChange={(e) => setConfirmPasscode(e.target.value)} placeholder="Confirm new passcode" aria-label="Confirm new passcode" className="w-full px-3 py-2.5 text-sm border border-[#D7DCE3] rounded-none mb-2 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" />
                 {recoverError && <div className="text-xs text-red-500 mb-2">{recoverError}</div>}
-                <button onClick={handleRecover} disabled={recoverBusy} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-2.5 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60">{recoverBusy ? "Resetting…" : "Reset passcode"}</button>
+                <button onClick={handleRecover} disabled={recoverBusy} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-full py-2.5 rounded-none text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60">{recoverBusy ? "Resetting…" : "Reset passcode"}</button>
               </>
             )}
           </div>
@@ -2080,14 +2411,14 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
         <div className="max-w-sm w-full">
-          <button onClick={goCatalog} className="flex items-center gap-1 text-xs text-[#171E22]/50 mb-6"><ArrowLeft size={13} /> Back to store</button>
-          <div style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-10 h-10 rounded-sm flex items-center justify-center mb-4"><Lock size={16} /></div>
+          <button onClick={goCatalog} className="flex items-center gap-1 text-xs text-[#10151F]/50 mb-6"><ArrowLeft size={13} /> Back to store</button>
+          <div style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-10 h-10 rounded-none flex items-center justify-center mb-4"><Lock size={16} /></div>
           <div className="font-display font-semibold text-xl mb-1">Admin dashboard</div>
-          <p className="text-sm text-[#171E22]/50 mb-4">Enter the admin passcode to continue.</p>
-          <BarePasswordInput value={adminPass} onChange={(e) => setAdminPass(e.target.value)} placeholder="Passcode" aria-label="Admin passcode" className="w-full px-3 py-2.5 text-sm border border-[#C9D6D6] rounded-sm mb-2 focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" onKeyDown={(e) => e.key === "Enter" && !checking && tryEnter()} />
+          <p className="text-sm text-[#10151F]/50 mb-4">Enter the admin passcode to continue.</p>
+          <BarePasswordInput value={adminPass} onChange={(e) => setAdminPass(e.target.value)} placeholder="Passcode" aria-label="Admin passcode" className="w-full px-3 py-2.5 text-sm border border-[#D7DCE3] rounded-none mb-2 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" onKeyDown={(e) => e.key === "Enter" && !checking && tryEnter()} />
           {adminError && <div className="text-xs text-red-500 mb-2">{adminError}</div>}
-          <button onClick={tryEnter} disabled={checking} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="w-full py-2.5 rounded-sm text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60">{checking ? "Checking…" : "Enter"}</button>
-          <button onClick={() => { setGateMode("recover"); setRecoverError(""); setRecoveryCode(""); setNewPasscode(""); setConfirmPasscode(""); setIssuedCode(null); }} className="w-full text-center text-xs text-[#171E22]/50 hover:underline mt-3">Forgot passcode?</button>
+          <button onClick={tryEnter} disabled={checking} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="w-full py-2.5 rounded-none text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-60">{checking ? "Checking…" : "Enter"}</button>
+          <button onClick={() => { setGateMode("recover"); setRecoverError(""); setRecoveryCode(""); setNewPasscode(""); setConfirmPasscode(""); setIssuedCode(null); }} className="w-full text-center text-xs text-[#10151F]/50 hover:underline mt-3">Forgot passcode?</button>
         </div>
       </div>
     );
@@ -2120,7 +2451,7 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
 
   return (
     <div className="min-h-screen">
-      <header style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="sticky top-0 z-20">
+      <header style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2 font-display font-semibold text-sm"><LayoutDashboard size={16} /> Admin dashboard</div>
           <div className="flex items-center gap-3">
@@ -2132,7 +2463,7 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
           {[{ id: "orders", label: "Orders" }, { id: "products", label: "Products" }, { id: "hero", label: "Hero Banner" }, { id: "settings", label: "Site Settings" }].map((t) => {
             const selected = tab === t.id;
             return (
-              <button key={t.id} type="button" onClick={() => setTab(t.id)} style={selected ? { backgroundColor: "#FFFFFF", color: "#23424D" } : undefined} className={`px-3 py-1.5 rounded-sm text-xs font-semibold transition-colors ${selected ? "" : "bg-white/10 text-white/70 hover:bg-white/15"}`}>
+              <button key={t.id} type="button" onClick={() => setTab(t.id)} style={selected ? { backgroundColor: "#FFFFFF", color: "#1E3A5F" } : undefined} className={`px-3 py-1.5 rounded-none text-xs font-semibold transition-colors ${selected ? "" : "bg-white/10 text-white/70 hover:bg-white/15"}`}>
                 {t.label}
               </button>
             );
@@ -2166,24 +2497,24 @@ function AdminView({ adminAuthed, adminPass, setAdminPass, adminError, setAdminE
                 {["All", ...ALL_STATUSES].map((s) => {
                   const selected = statusFilter === s;
                   return (
-                    <button key={s} type="button" onClick={() => setStatusFilter(s)} style={selected ? SELECTED_STYLE : undefined} className={`whitespace-nowrap px-2.5 py-1.5 rounded-full text-xs border-2 flex items-center gap-1 transition-all ${selected ? "font-semibold shadow-sm" : "bg-white border-[#C9D6D6] text-[#171E22]/60"}`}>
+                    <button key={s} type="button" onClick={() => setStatusFilter(s)} style={selected ? SELECTED_STYLE : undefined} className={`whitespace-nowrap px-2.5 py-1.5 rounded-full text-xs border-2 flex items-center gap-1 transition-all ${selected ? "font-semibold shadow-sm" : "bg-white border-[#D7DCE3] text-[#10151F]/60"}`}>
                       {selected && <Check size={11} strokeWidth={3} />}
                       {s}
                     </button>
                   );
                 })}
               </div>
-              <div className="text-[11px] text-[#0E8C82] font-mono mt-1">Showing: {statusFilter}</div>
+              <div className="text-[11px] text-[#8A6A2E] font-mono mt-1">Showing: {statusFilter}</div>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={exportOrdersCSV} className="text-xs px-2.5 py-1.5 border border-[#C9D6D6] rounded-sm flex items-center gap-1.5 hover:bg-[#F6F7F6]"><Download size={12} /> Export CSV</button>
-              <button onClick={reload} className="text-xs text-[#171E22]/50 underline shrink-0">Refresh</button>
+              <button onClick={exportOrdersCSV} className="text-xs px-2.5 py-1.5 border border-[#D7DCE3] rounded-none flex items-center gap-1.5 hover:bg-[#F4F5F8]"><Download size={12} /> Export CSV</button>
+              <button onClick={reload} className="text-xs text-[#10151F]/50 underline shrink-0">Refresh</button>
             </div>
           </div>
 
-          {ordersLoading && <div className="text-sm text-[#171E22]/50 py-10 text-center">Loading orders…</div>}
+          {ordersLoading && <div className="text-sm text-[#10151F]/50 py-10 text-center">Loading orders…</div>}
           {!ordersLoading && displayed.length === 0 && (
-            <div className="text-sm text-[#171E22]/50 py-16 text-center border border-dashed border-[#C9D6D6] rounded-sm">
+            <div className="text-sm text-[#10151F]/50 py-16 text-center border border-dashed border-[#D7DCE3] rounded-none">
               No orders yet — place a test order from the store view to see it appear here.
             </div>
           )}
@@ -2222,42 +2553,42 @@ function ProductsAdminPanel({ products, addProduct, updateProduct, deleteProduct
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
         <div>
           <div className="font-display font-semibold text-lg">Product catalog</div>
-          <p className="text-xs text-[#171E22]/50 mt-0.5">Add new articles, edit details or photos, or hide items from the store.</p>
+          <p className="text-xs text-[#10151F]/50 mt-0.5">Add new articles, edit details or photos, or hide items from the store.</p>
         </div>
-        <button onClick={openAdd} style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="text-xs font-semibold px-3 py-2 rounded-sm hover:opacity-90 transition-opacity flex items-center gap-1.5 shrink-0">
+        <button onClick={openAdd} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="text-xs font-semibold px-3 py-2 rounded-none hover:opacity-90 transition-opacity flex items-center gap-1.5 shrink-0">
           <Plus size={14} /> Add product
         </button>
       </div>
 
       <div className="relative mb-4 max-w-xs">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#171E22]/40" />
-        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by name or code…" aria-label="Search products" className="pl-8 pr-3 py-2 text-sm rounded-sm border border-[#C9D6D6] bg-white focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 w-full" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#10151F]/40" />
+        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search by name or code…" aria-label="Search products" className="pl-8 pr-3 py-2 text-sm rounded-none border border-[#D7DCE3] bg-white focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40 w-full" />
       </div>
 
       {visibleProducts.length === 0 && (
-        <div className="text-sm text-[#171E22]/50 py-16 text-center border border-dashed border-[#C9D6D6] rounded-sm">No products match "{search}".</div>
+        <div className="text-sm text-[#10151F]/50 py-16 text-center border border-dashed border-[#D7DCE3] rounded-none">No products match "{search}".</div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {visibleProducts.map((p) => (
-          <div key={p.id} className={`bg-white border rounded-sm overflow-hidden flex flex-col ${p.hidden ? "border-[#C9D6D6] opacity-60" : "border-[#C9D6D6]"}`}>
+          <div key={p.id} className={`bg-white border rounded-none overflow-hidden flex flex-col ${p.hidden ? "border-[#D7DCE3] opacity-60" : "border-[#D7DCE3]"}`}>
             <div className="relative">
               <ProductThumb product={p} />
               {p.hidden && (
-                <span style={{ backgroundColor: "#171E22", color: "#FFFFFF" }} className="absolute top-1.5 left-2 text-[10px] font-mono px-1.5 py-0.5 rounded-sm">Hidden</span>
+                <span style={{ backgroundColor: "#10151F", color: "#FFFFFF" }} className="absolute top-1.5 left-2 text-[10px] font-mono px-1.5 py-0.5 rounded-none">Hidden</span>
               )}
             </div>
             <div className="p-3 flex flex-col gap-1.5 flex-1">
-              <div className="font-mono text-[10px] text-[#171E22]/50">{p.id}</div>
+              <div className="font-mono text-[10px] text-[#10151F]/50">{p.id}</div>
               <div className="font-display font-semibold text-sm leading-tight">{p.name}</div>
-              <div className="text-[11px] text-[#171E22]/50">{p.cat}</div>
+              <div className="text-[11px] text-[#10151F]/50">{p.cat}</div>
               <div className="font-mono text-sm font-medium mt-auto pt-1.5">{money(p.price)}</div>
               <div className="flex items-center gap-1.5 pt-1.5">
-                <button onClick={() => openEdit(p)} className="flex-1 text-xs px-2 py-1.5 border border-[#C9D6D6] rounded-sm hover:bg-[#F6F7F6] transition-colors">Edit</button>
-                <button onClick={() => toggleHideProduct(p.id)} className="px-2 py-1.5 border border-[#C9D6D6] rounded-sm hover:bg-[#F6F7F6] transition-colors" title={p.hidden ? "Unhide" : "Hide"}>
+                <button onClick={() => openEdit(p)} className="flex-1 text-xs px-2 py-1.5 border border-[#D7DCE3] rounded-none hover:bg-[#F4F5F8] transition-colors">Edit</button>
+                <button onClick={() => toggleHideProduct(p.id)} className="px-2 py-1.5 border border-[#D7DCE3] rounded-none hover:bg-[#F4F5F8] transition-colors" title={p.hidden ? "Unhide" : "Hide"}>
                   {p.hidden ? <Eye size={13} /> : <EyeOff size={13} />}
                 </button>
-                <button onClick={() => setConfirmDelete(p.id)} className="px-2 py-1.5 border border-[#C9D6D6] rounded-sm hover:bg-red-50 hover:border-red-200 text-red-500 transition-colors">
+                <button onClick={() => setConfirmDelete(p.id)} className="px-2 py-1.5 border border-[#D7DCE3] rounded-none hover:bg-red-50 hover:border-red-200 text-red-500 transition-colors">
                   <Trash2 size={13} />
                 </button>
               </div>
@@ -2265,7 +2596,7 @@ function ProductsAdminPanel({ products, addProduct, updateProduct, deleteProduct
           </div>
         ))}
         {products.length === 0 && (
-          <div className="col-span-full text-center py-16 text-sm text-[#171E22]/50 border border-dashed border-[#C9D6D6] rounded-sm">No products yet — add your first one.</div>
+          <div className="col-span-full text-center py-16 text-sm text-[#10151F]/50 border border-dashed border-[#D7DCE3] rounded-none">No products yet — add your first one.</div>
         )}
       </div>
 
@@ -2278,12 +2609,12 @@ function ProductsAdminPanel({ products, addProduct, updateProduct, deleteProduct
 
       {confirmDelete && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-6" onClick={() => setConfirmDelete(null)}>
-          <div className="bg-white max-w-xs w-full rounded-sm p-5" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white max-w-xs w-full rounded-none p-5" onClick={(e) => e.stopPropagation()}>
             <div className="font-display font-semibold text-base mb-1">Delete this product?</div>
-            <p className="text-xs text-[#171E22]/50 mb-4">This removes it from the store catalog. This can't be undone.</p>
+            <p className="text-xs text-[#10151F]/50 mb-4">This removes it from the store catalog. This can't be undone.</p>
             <div className="flex gap-2">
-              <button onClick={() => setConfirmDelete(null)} className="flex-1 py-2 border border-[#C9D6D6] rounded-sm text-xs font-medium">Cancel</button>
-              <button onClick={() => { deleteProduct(confirmDelete); setConfirmDelete(null); }} className="flex-1 py-2 bg-red-500 text-white rounded-sm text-xs font-medium hover:opacity-90">Delete</button>
+              <button onClick={() => setConfirmDelete(null)} className="flex-1 py-2 border border-[#D7DCE3] rounded-none text-xs font-medium">Cancel</button>
+              <button onClick={() => { deleteProduct(confirmDelete); setConfirmDelete(null); }} className="flex-1 py-2 bg-red-500 text-white rounded-none text-xs font-medium hover:opacity-90">Delete</button>
             </div>
           </div>
         </div>
@@ -2293,6 +2624,55 @@ function ProductsAdminPanel({ products, addProduct, updateProduct, deleteProduct
 }
 
 /* ---------------- Admin: Hero Banner ---------------- */
+
+function HomepageListEditor({ title, siteSettings, updateSiteSettings, settingsKey, fields, makeBlank }) {
+  const [items, setItems] = useState(() => (Array.isArray(siteSettings[settingsKey]) ? siteSettings[settingsKey] : []));
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  function updateItem(i, key, value) {
+    setItems((prev) => prev.map((it, idx) => (idx === i ? { ...it, [key]: value } : it)));
+    setSaved(false);
+  }
+  function addRow() { setItems((prev) => [...prev, makeBlank()]); setSaved(false); }
+  function deleteRow(i) { setItems((prev) => prev.filter((_, idx) => idx !== i)); setSaved(false); }
+
+  async function handleSave() {
+    setSaving(true); setSaved(false);
+    await updateSiteSettings({ [settingsKey]: items });
+    setSaving(false); setSaved(true);
+  }
+
+  return (
+    <div className="border border-[#D7DCE3] rounded-none p-3.5">
+      <div className="text-sm font-semibold mb-2.5">{title}</div>
+      <div className="space-y-2">
+        {items.length === 0 && <div className="text-xs text-[#10151F]/40 italic">No items — showing default content on the site.</div>}
+        {items.map((item, i) => (
+          <div key={i} className="flex items-center gap-1.5">
+            {fields.map((f) => (
+              f.type === "select" ? (
+                <select key={f.key} value={item[f.key] || ""} onChange={(e) => updateItem(i, f.key, e.target.value)} style={{ color: "#10151F" }} className="text-xs border border-[#D7DCE3] rounded-none px-2 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40">
+                  {f.options.map(([val, lbl]) => <option key={val} value={val}>{lbl}</option>)}
+                </select>
+              ) : (
+                <input key={f.key} value={item[f.key] || ""} onChange={(e) => updateItem(i, f.key, e.target.value)} placeholder={f.label} style={{ color: "#10151F" }} className="flex-1 text-xs border border-[#D7DCE3] rounded-none px-2.5 py-2 focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" />
+              )
+            ))}
+            <button onClick={() => deleteRow(i)} aria-label="Delete item" className="w-8 h-8 shrink-0 flex items-center justify-center text-red-500 hover:bg-red-50 rounded-none"><Trash2 size={14} /></button>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center gap-3 mt-3">
+        <button onClick={addRow} className="text-xs px-2.5 py-1.5 border border-[#D7DCE3] rounded-none flex items-center gap-1.5 hover:bg-[#F4F5F8]"><Plus size={12} /> Add item</button>
+        <button onClick={handleSave} disabled={saving} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="text-xs px-3 py-1.5 rounded-none font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+          {saving ? "Saving…" : "Save " + title}
+        </button>
+        {saved && <span className="text-xs flex items-center gap-1" style={{ color: "#0E6B62" }}><CheckCircle2 size={13} /> Saved</span>}
+      </div>
+    </div>
+  );
+}
 
 function SiteSettingsPanel({ siteSettings, updateSiteSettings, changeAdminPasscode, regenerateRecoveryCode }) {
   const [form, setForm] = useState({ email: siteSettings.email, phone: siteSettings.phone, terms: siteSettings.terms, privacy: siteSettings.privacy });
@@ -2344,72 +2724,94 @@ function SiteSettingsPanel({ siteSettings, updateSiteSettings, changeAdminPassco
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6 space-y-8">
       <div>
         <div className="font-display font-semibold text-lg mb-1">Contact & Legal</div>
-        <p className="text-xs text-[#171E22]/50 mb-4">Shown in the store footer. Edit anytime — changes are visible to customers immediately.</p>
+        <p className="text-xs text-[#10151F]/50 mb-4">Shown in the store footer. Edit anytime — changes are visible to customers immediately.</p>
         <div className="space-y-3">
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1">Contact email</div>
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1">Contact email</div>
             <Field icon={Mail} type="email" placeholder="Contact email" value={form.email} onChange={(v) => { setForm({ ...form, email: v }); setSaved(false); }} />
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1">Contact phone</div>
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1">Contact phone</div>
             <Field icon={Phone} placeholder="Contact phone" value={form.phone} onChange={(v) => { setForm({ ...form, phone: v }); setSaved(false); }} />
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1">Terms & Conditions</div>
-            <textarea value={form.terms} onChange={(e) => { setForm({ ...form, terms: e.target.value }); setSaved(false); }} rows={6} style={{ color: "#171E22" }} className="w-full px-3 py-2.5 text-xs border border-[#C9D6D6] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 font-mono" />
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1">Terms & Conditions</div>
+            <textarea value={form.terms} onChange={(e) => { setForm({ ...form, terms: e.target.value }); setSaved(false); }} rows={6} style={{ color: "#10151F" }} className="w-full px-3 py-2.5 text-xs border border-[#D7DCE3] rounded-none focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40 font-mono" />
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1">Privacy Policy</div>
-            <textarea value={form.privacy} onChange={(e) => { setForm({ ...form, privacy: e.target.value }); setSaved(false); }} rows={6} style={{ color: "#171E22" }} className="w-full px-3 py-2.5 text-xs border border-[#C9D6D6] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40 font-mono" />
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1">Privacy Policy</div>
+            <textarea value={form.privacy} onChange={(e) => { setForm({ ...form, privacy: e.target.value }); setSaved(false); }} rows={6} style={{ color: "#10151F" }} className="w-full px-3 py-2.5 text-xs border border-[#D7DCE3] rounded-none focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40 font-mono" />
           </div>
-          {saved && <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Saved.</div>}
-          <button onClick={handleSaveSettings} disabled={saving} style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="px-4 py-2.5 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+          {saved && <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Saved.</div>}
+          <button onClick={handleSaveSettings} disabled={saving} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="px-4 py-2.5 rounded-none text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
             {saving ? "Saving…" : "Save changes"}
           </button>
         </div>
       </div>
 
-      <div className="border-t border-[#C9D6D6] pt-6">
+      <div className="border-t border-[#D7DCE3] pt-6">
+        <div className="font-display font-semibold text-lg mb-1">Homepage content</div>
+        <p className="text-xs text-[#10151F]/50 mb-4">Eyebrow badges, stats, and trust badges shown on the homepage — edit, add, or remove items below. Leave a section empty to show sensible defaults.</p>
+        <div className="space-y-6">
+          <HomepageListEditor
+            title="Eyebrow badges" siteSettings={siteSettings} updateSiteSettings={updateSiteSettings} settingsKey="heroEyebrowBadges"
+            fields={[{ key: "text", label: "Badge text", type: "text" }]}
+            makeBlank={() => ({ text: "" })}
+          />
+          <HomepageListEditor
+            title="Stats section" siteSettings={siteSettings} updateSiteSettings={updateSiteSettings} settingsKey="statsSection"
+            fields={[{ key: "value", label: "Value (e.g. 15, 150+, ISO 13485)", type: "text" }, { key: "label", label: "Label", type: "text" }]}
+            makeBlank={() => ({ value: "", label: "" })}
+          />
+          <HomepageListEditor
+            title="Trust badges" siteSettings={siteSettings} updateSiteSettings={updateSiteSettings} settingsKey="trustBadges"
+            fields={[{ key: "label", label: "Badge label", type: "text" }, { key: "icon", label: "Icon", type: "select", options: [["shield", "Shield / Certified"], ["certificate", "Certificate"], ["factory", "Factory"], ["material", "Material"]] }]}
+            makeBlank={() => ({ label: "", icon: "shield" })}
+          />
+        </div>
+      </div>
+
+      <div className="border-t border-[#D7DCE3] pt-6">
         <div className="font-display font-semibold text-lg mb-1 flex items-center gap-1.5"><Lock size={16} /> Admin Passcode</div>
-        <p className="text-xs text-[#171E22]/50 mb-4">Change the passcode used to enter this dashboard.</p>
+        <p className="text-xs text-[#10151F]/50 mb-4">Change the passcode used to enter this dashboard.</p>
         <div className="space-y-3 max-w-sm">
           {passSuccess && (
-            <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Passcode updated successfully.</div>
+            <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> Passcode updated successfully.</div>
           )}
           <Field icon={Lock} type="password" placeholder="Current password" value={passForm.current} onChange={(v) => setPassForm({ ...passForm, current: v })} />
           <Field icon={Lock} type="password" placeholder="New password" value={passForm.next} onChange={(v) => setPassForm({ ...passForm, next: v })} />
           <Field icon={Lock} type="password" placeholder="Confirm password" value={passForm.confirm} onChange={(v) => setPassForm({ ...passForm, confirm: v })} />
           {passError && <div className="text-xs text-red-500">{passError}</div>}
-          <button onClick={handleChangePasscode} disabled={passBusy} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="px-4 py-2.5 rounded-sm text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+          <button onClick={handleChangePasscode} disabled={passBusy} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="px-4 py-2.5 rounded-none text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
             {passBusy ? "Updating…" : "Update passcode"}
           </button>
         </div>
       </div>
 
-      <div className="border-t border-[#C9D6D6] pt-6">
+      <div className="border-t border-[#D7DCE3] pt-6">
         <div className="font-display font-semibold text-lg mb-1 flex items-center gap-1.5"><HelpCircle size={16} /> Recovery Code</div>
-        <p className="text-xs text-[#171E22]/50 mb-4">
+        <p className="text-xs text-[#10151F]/50 mb-4">
           Used on the passcode screen if you ever forget it. Generating a new one immediately invalidates the old one — save it somewhere safe (password manager, notes app) as soon as it's shown; it won't be shown again.
         </p>
         <div className="max-w-sm space-y-3">
           {issuedCode && (
             <div className="space-y-2">
-              <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-sm p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> New recovery code generated — save it now.</div>
-              <div className="border-2 border-dashed border-[#C9D6D6] rounded-sm p-4 text-center font-mono text-lg tracking-wider">{issuedCode}</div>
-              <button onClick={() => navigator.clipboard?.writeText(issuedCode)} className="w-full py-2 border border-[#C9D6D6] rounded-sm text-xs font-medium hover:bg-[#F6F7F6]">Copy code</button>
+              <div style={{ backgroundColor: "#D6E9E7", color: "#0E6B62" }} className="text-xs rounded-none p-2.5 flex items-center gap-1.5"><CheckCircle2 size={14} /> New recovery code generated — save it now.</div>
+              <div className="border-2 border-dashed border-[#D7DCE3] rounded-none p-4 text-center font-mono text-lg tracking-wider">{issuedCode}</div>
+              <button onClick={() => navigator.clipboard?.writeText(issuedCode)} className="w-full py-2 border border-[#D7DCE3] rounded-none text-xs font-medium hover:bg-[#F4F5F8]">Copy code</button>
             </div>
           )}
           {recoveryError && <div className="text-xs text-red-500">{recoveryError}</div>}
           {confirmRegenerate ? (
-            <div className="border border-[#C9D6D6] rounded-sm p-3 space-y-2">
+            <div className="border border-[#D7DCE3] rounded-none p-3 space-y-2">
               <div className="text-xs">This replaces your current recovery code — the old one will stop working. Continue?</div>
               <div className="flex gap-2">
-                <button onClick={() => setConfirmRegenerate(false)} className="flex-1 py-2 border border-[#C9D6D6] rounded-sm text-xs font-medium">Cancel</button>
-                <button onClick={handleRegenerate} disabled={recoveryBusy} style={{ backgroundColor: "#23424D", color: "#FFFFFF" }} className="flex-1 py-2 rounded-sm text-xs font-semibold disabled:opacity-60">{recoveryBusy ? "Generating…" : "Yes, regenerate"}</button>
+                <button onClick={() => setConfirmRegenerate(false)} className="flex-1 py-2 border border-[#D7DCE3] rounded-none text-xs font-medium">Cancel</button>
+                <button onClick={handleRegenerate} disabled={recoveryBusy} style={{ backgroundColor: "#1E3A5F", color: "#FFFFFF" }} className="flex-1 py-2 rounded-none text-xs font-semibold disabled:opacity-60">{recoveryBusy ? "Generating…" : "Yes, regenerate"}</button>
               </div>
             </div>
           ) : (
-            <button onClick={() => { setConfirmRegenerate(true); setIssuedCode(null); }} className="px-4 py-2.5 border border-[#C9D6D6] rounded-sm text-sm font-medium hover:bg-[#F6F7F6] transition-colors">
+            <button onClick={() => { setConfirmRegenerate(true); setIssuedCode(null); }} className="px-4 py-2.5 border border-[#D7DCE3] rounded-none text-sm font-medium hover:bg-[#F4F5F8] transition-colors">
               {issuedCode ? "Generate another code" : "Regenerate recovery code"}
             </button>
           )}
@@ -2471,31 +2873,31 @@ function HeroAdminPanel({ products, updateProduct, heroSelection, saveHeroSelect
       <div className="flex items-start justify-between mb-1 gap-3">
         <div>
           <div className="font-display font-semibold text-lg">Hero banner</div>
-          <p className="text-xs text-[#171E22]/50 mt-0.5">Pick which products rotate in the homepage banner, and give each one its own photo. Until a product has a photo, its technical diagram keeps rotating in its place.</p>
+          <p className="text-xs text-[#10151F]/50 mt-0.5">Pick which products rotate in the homepage banner, and give each one its own photo. Until a product has a photo, its technical diagram keeps rotating in its place.</p>
         </div>
-        <button onClick={handleSave} style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="text-xs font-semibold px-3 py-2 rounded-sm hover:opacity-90 transition-opacity shrink-0">
+        <button onClick={handleSave} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="text-xs font-semibold px-3 py-2 rounded-none hover:opacity-90 transition-opacity shrink-0">
           {saved ? "Saved ✓" : "Save banner"}
         </button>
       </div>
-      <div className="text-[11px] text-[#0E8C82] font-mono mb-4">{usingAuto ? "Auto-picking (one per category)" : `${selected.length} product${selected.length === 1 ? "" : "s"} selected, in this order`}</div>
+      <div className="text-[11px] text-[#8A6A2E] font-mono mb-4">{usingAuto ? "Auto-picking (one per category)" : `${selected.length} product${selected.length === 1 ? "" : "s"} selected, in this order`}</div>
       {imgError && <div style={{ color: "#DC2626" }} className="text-xs mb-4">{imgError}</div>}
 
       {selected.length > 0 && (
         <div className="mb-6">
-          <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-2">Banner order</div>
+          <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-2">Banner order</div>
           <div className="space-y-1.5">
             {selected.map((id, i) => {
               const p = visible.find((x) => x.id === id);
               if (!p) return null;
               return (
-                <div key={id} className="flex items-center gap-2 bg-white border border-[#C9D6D6] rounded-sm px-2 py-1.5">
+                <div key={id} className="flex items-center gap-2 bg-white border border-[#D7DCE3] rounded-none px-2 py-1.5">
                   <label style={{ display: "block", cursor: uploadingId === p.id ? "wait" : "pointer" }} className="w-10 h-8 shrink-0" title="Tap to change photo">
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageChange(p, e)} disabled={uploadingId === p.id} />
                     <ProductThumb product={p} />
                   </label>
                   <div className="text-xs flex-1 min-w-0 truncate">{p.name}</div>
-                  <button onClick={() => move(id, -1)} disabled={i === 0} className="text-[#171E22]/50 disabled:opacity-20 px-1">▲</button>
-                  <button onClick={() => move(id, 1)} disabled={i === selected.length - 1} className="text-[#171E22]/50 disabled:opacity-20 px-1">▼</button>
+                  <button onClick={() => move(id, -1)} disabled={i === 0} className="text-[#10151F]/50 disabled:opacity-20 px-1">▲</button>
+                  <button onClick={() => move(id, 1)} disabled={i === selected.length - 1} className="text-[#10151F]/50 disabled:opacity-20 px-1">▼</button>
                   <button onClick={() => toggle(id)} className="text-red-500 px-1"><X size={14} /></button>
                 </div>
               );
@@ -2504,12 +2906,12 @@ function HeroAdminPanel({ products, updateProduct, heroSelection, saveHeroSelect
         </div>
       )}
 
-      <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-2">All products</div>
+      <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-2">All products</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {visible.map((p) => {
           const isSelected = selected.includes(p.id);
           return (
-            <div key={p.id} style={isSelected ? { borderColor: "#0E8C82" } : undefined} className="bg-white border border-[#C9D6D6] rounded-sm overflow-hidden flex flex-col">
+            <div key={p.id} style={isSelected ? { borderColor: "#8A6A2E" } : undefined} className="bg-white border border-[#D7DCE3] rounded-none overflow-hidden flex flex-col">
               <div className="relative">
                 <label style={{ display: "block", cursor: uploadingId === p.id ? "wait" : "pointer" }}>
                   <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageChange(p, e)} disabled={uploadingId === p.id} />
@@ -2520,23 +2922,23 @@ function HeroAdminPanel({ products, updateProduct, heroSelection, saveHeroSelect
                 </label>
                 <button
                   onClick={() => toggle(p.id)}
-                  style={isSelected ? { backgroundColor: "#0E8C82", color: "#FFFFFF" } : { backgroundColor: "rgba(255,255,255,0.9)", color: "#171E22" }}
-                  className="absolute top-1.5 left-2 text-[10px] font-semibold px-2 py-1 rounded-sm flex items-center gap-1"
+                  style={isSelected ? { backgroundColor: "#8A6A2E", color: "#FFFFFF" } : { backgroundColor: "rgba(255,255,255,0.9)", color: "#10151F" }}
+                  className="absolute top-1.5 left-2 text-[10px] font-semibold px-2 py-1 rounded-none flex items-center gap-1"
                 >
                   {isSelected && <Check size={11} strokeWidth={3} />} {isSelected ? "In banner" : "Add to banner"}
                 </button>
               </div>
               <div className="p-3 flex flex-col gap-1.5">
-                <div className="font-mono text-[10px] text-[#171E22]/50">{p.id}</div>
+                <div className="font-mono text-[10px] text-[#10151F]/50">{p.id}</div>
                 <div className="font-display font-semibold text-sm leading-tight">{p.name}</div>
-                <label style={{ backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", color: "#171E22", cursor: uploadingId === p.id ? "wait" : "pointer" }} className="text-xs font-medium px-2.5 py-1.5 rounded-sm hover:bg-[#F6F7F6] transition-colors flex items-center justify-center gap-1.5">
+                <label style={{ backgroundColor: "#FFFFFF", border: "1px solid #D7DCE3", color: "#10151F", cursor: uploadingId === p.id ? "wait" : "pointer" }} className="text-xs font-medium px-2.5 py-1.5 rounded-none hover:bg-[#F4F5F8] transition-colors flex items-center justify-center gap-1.5">
                   <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageChange(p, e)} disabled={uploadingId === p.id} />
                   <Upload size={12} /> {uploadingId === p.id ? "Uploading…" : p.image ? "Change photo" : "Add photo"}
                 </label>
                 {p.image ? (
                   <button onClick={() => removeImage(p)} style={{ color: "#DC2626" }} className="text-xs hover:underline self-start">Remove photo</button>
                 ) : (
-                  <div className="text-[10px] text-[#171E22]/40">No photo yet — diagram will rotate here.</div>
+                  <div className="text-[10px] text-[#10151F]/40">No photo yet — diagram will rotate here.</div>
                 )}
               </div>
             </div>
@@ -2581,15 +2983,15 @@ function ProductFormModal({ product, onClose, onSave, busy, error, categories, a
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-6" onClick={onClose}>
-      <div style={{ maxHeight: "92vh", overflowY: "auto" }} className="bg-white w-full sm:max-w-lg sm:rounded-sm rounded-t-lg" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-4 border-b border-[#C9D6D6]">
+      <div style={{ maxHeight: "92vh", overflowY: "auto" }} className="bg-white w-full sm:max-w-lg sm:rounded-none rounded-t-lg" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-4 border-b border-[#D7DCE3]">
           <div className="font-display font-semibold">{product ? "Edit product" : "Add product"}</div>
           <button onClick={onClose}><X size={18} /></button>
         </div>
         <div className="p-4 space-y-3">
           <div>
-            <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40 mb-1.5">Photo</div>
-            <label style={{ backgroundColor: "#F6F7F6", border: "2px dashed #C9D6D6" }} className="relative block w-40 h-32 mx-auto rounded-sm cursor-pointer hover:border-[#0E8C82] transition-colors overflow-hidden">
+            <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40 mb-1.5">Photo</div>
+            <label style={{ backgroundColor: "#F4F5F8", border: "2px dashed #D7DCE3" }} className="relative block w-40 h-32 mx-auto rounded-none cursor-pointer hover:border-[#8A6A2E] transition-colors overflow-hidden">
               <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} disabled={imageBusy} />
               {form.image ? (
                 <img src={form.image} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
@@ -2604,7 +3006,7 @@ function ProductFormModal({ product, onClose, onSave, busy, error, categories, a
               )}
             </label>
             <div className="flex items-center justify-center gap-3 mt-2">
-              <label style={{ backgroundColor: "#FFFFFF", border: "1px solid #C9D6D6", color: "#171E22", cursor: imageBusy ? "wait" : "pointer" }} className="text-xs font-medium px-3 py-1.5 rounded-sm hover:bg-[#F6F7F6] transition-colors inline-flex items-center gap-1.5">
+              <label style={{ backgroundColor: "#FFFFFF", border: "1px solid #D7DCE3", color: "#10151F", cursor: imageBusy ? "wait" : "pointer" }} className="text-xs font-medium px-3 py-1.5 rounded-none hover:bg-[#F4F5F8] transition-colors inline-flex items-center gap-1.5">
                 <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} disabled={imageBusy} />
                 <Upload size={12} /> {form.image ? "Change photo" : "Upload photo"}
               </label>
@@ -2613,24 +3015,24 @@ function ProductFormModal({ product, onClose, onSave, busy, error, categories, a
               )}
             </div>
             {imageError && <div className="text-xs text-red-500 mt-1 text-center">{imageError}</div>}
-            {!form.image && <div className="text-[11px] text-[#171E22]/40 mt-1 text-center">No photo yet — the technical line-drawing icon will be shown instead.</div>}
+            {!form.image && <div className="text-[11px] text-[#10151F]/40 mt-1 text-center">No photo yet — the technical line-drawing icon will be shown instead.</div>}
           </div>
 
           <Field icon={ClipboardList} placeholder="Product code (leave blank to auto-generate)" value={form.id} onChange={(v) => setForm({ ...form, id: v })} disabled={!!product} />
-          {product && <div className="text-[11px] text-[#171E22]/40 -mt-2">Product code can't be changed after creation.</div>}
+          {product && <div className="text-[11px] text-[#10151F]/40 -mt-2">Product code can't be changed after creation.</div>}
           <Field icon={Package} placeholder="Product name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
           <SelectPills label="Category" options={categories} value={form.cat} onChange={(v) => setForm({ ...form, cat: v })} />
           {addingCat ? (
             <div className="flex gap-1.5 items-start">
               <div className="flex-1">
-                <input value={newCat} onChange={(e) => setNewCat(e.target.value)} placeholder="New category name" aria-label="New category name" className="w-full px-2.5 py-2 text-xs border border-[#C9D6D6] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#0E8C82]/40" />
+                <input value={newCat} onChange={(e) => setNewCat(e.target.value)} placeholder="New category name" aria-label="New category name" className="w-full px-2.5 py-2 text-xs border border-[#D7DCE3] rounded-none focus:outline-none focus:ring-2 focus:ring-[#8A6A2E]/40" />
                 {catError && <div className="text-[11px] text-red-500 mt-1">{catError}</div>}
               </div>
-              <button type="button" onClick={async () => { const res = await addCategory(newCat); if (res.ok) { setForm((f) => ({ ...f, cat: res.value })); setNewCat(""); setAddingCat(false); setCatError(""); } else setCatError(res.error); }} style={{ backgroundColor: "#0E8C82", color: "#FFFFFF" }} className="text-xs font-medium px-2.5 py-2 rounded-sm shrink-0">Add</button>
-              <button type="button" onClick={() => { setAddingCat(false); setNewCat(""); setCatError(""); }} className="text-xs px-2.5 py-2 border border-[#C9D6D6] rounded-sm shrink-0">Cancel</button>
+              <button type="button" onClick={async () => { const res = await addCategory(newCat); if (res.ok) { setForm((f) => ({ ...f, cat: res.value })); setNewCat(""); setAddingCat(false); setCatError(""); } else setCatError(res.error); }} style={{ backgroundColor: "#8A6A2E", color: "#FFFFFF" }} className="text-xs font-medium px-2.5 py-2 rounded-none shrink-0">Add</button>
+              <button type="button" onClick={() => { setAddingCat(false); setNewCat(""); setCatError(""); }} className="text-xs px-2.5 py-2 border border-[#D7DCE3] rounded-none shrink-0">Cancel</button>
             </div>
           ) : (
-            <button type="button" onClick={() => setAddingCat(true)} className="text-xs text-[#0E8C82] hover:underline flex items-center gap-1"><Tag size={12} /> Add new category</button>
+            <button type="button" onClick={() => setAddingCat(true)} className="text-xs text-[#8A6A2E] hover:underline flex items-center gap-1"><Tag size={12} /> Add new category</button>
           )}
           <Field icon={ClipboardList} placeholder="Material (e.g. Ti-6Al-4V Titanium Alloy)" value={form.material} onChange={(v) => setForm({ ...form, material: v })} />
           <Field icon={ClipboardList} placeholder="Dimensions (e.g. 6-hole · L98mm · W11mm)" value={form.dim} onChange={(v) => setForm({ ...form, dim: v })} />
@@ -2644,12 +3046,12 @@ function ProductFormModal({ product, onClose, onSave, busy, error, categories, a
           <button
             disabled={!canSave || busy || imageBusy}
             onClick={() => handleSaveClick()}
-            style={canSave && !busy && !imageBusy ? { backgroundColor: "#23424D", color: "#FFFFFF" } : undefined}
-            className={`w-full py-2.5 rounded-sm text-sm font-semibold transition-colors ${!canSave || busy || imageBusy ? "bg-[#F6F7F6] text-[#171E22]/40" : "hover:opacity-90"}`}
+            style={canSave && !busy && !imageBusy ? { backgroundColor: "#1E3A5F", color: "#FFFFFF" } : undefined}
+            className={`w-full py-2.5 rounded-none text-sm font-semibold transition-colors ${!canSave || busy || imageBusy ? "bg-[#F4F5F8] text-[#10151F]/40" : "hover:opacity-90"}`}
           >
             {busy ? "Saving…" : product ? "Save changes" : "Add product"}
           </button>
-          {!canSave && <div className="text-[11px] text-[#171E22]/40 text-center">Fill in: {missing.join(", ")}</div>}
+          {!canSave && <div className="text-[11px] text-[#10151F]/40 text-center">Fill in: {missing.join(", ")}</div>}
         </div>
       </div>
     </div>
@@ -2660,8 +3062,8 @@ function ProductFormModal({ product, onClose, onSave, busy, error, categories, a
 
 function StatCard({ label, value, mono }) {
   return (
-    <div className="bg-white border border-[#C9D6D6] rounded-sm p-3">
-      <div className="text-[10px] uppercase tracking-wide text-[#171E22]/40">{label}</div>
+    <div className="bg-white border border-[#D7DCE3] rounded-none p-3">
+      <div className="text-[10px] uppercase tracking-wide text-[#10151F]/40">{label}</div>
       <div className={`text-lg font-semibold mt-0.5 ${mono ? "font-mono" : "font-display"}`}>{value}</div>
     </div>
   );
@@ -2671,13 +3073,13 @@ function OrderCard({ order, updateStatus }) {
   const [open, setOpen] = useState(false);
   const Icon = STATUS_ICON[order.status];
   return (
-    <div className="bg-white border border-[#C9D6D6] rounded-sm overflow-hidden">
+    <div className="bg-white border border-[#D7DCE3] rounded-none overflow-hidden">
       <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-3.5 text-left">
         <div className="flex items-center gap-3 min-w-0">
-          <div className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 ${STATUS_COLOR[order.status]}`}><Icon size={14} /></div>
+          <div className={`w-8 h-8 rounded-none flex items-center justify-center shrink-0 ${STATUS_COLOR[order.status]}`}><Icon size={14} /></div>
           <div className="min-w-0">
-            <div className="text-sm font-medium truncate">{order.customer.name} <span className="text-[#171E22]/40 font-normal">· {order.customer.type}</span></div>
-            <div className="text-xs text-[#171E22]/50 font-mono">{order.orderId} · {new Date(order.ts).toLocaleString()}</div>
+            <div className="text-sm font-medium truncate">{order.customer.name} <span className="text-[#10151F]/40 font-normal">· {order.customer.type}</span></div>
+            <div className="text-xs text-[#10151F]/50 font-mono">{order.orderId} · {new Date(order.ts).toLocaleString()}</div>
           </div>
         </div>
         <div className="flex items-center gap-3 shrink-0">
@@ -2686,26 +3088,26 @@ function OrderCard({ order, updateStatus }) {
         </div>
       </button>
       {open && (
-        <div className="border-t border-[#C9D6D6] p-3.5 space-y-3 bg-[#F6F7F6]">
+        <div className="border-t border-[#D7DCE3] p-3.5 space-y-3 bg-[#F4F5F8]">
           <div className="grid sm:grid-cols-2 gap-3 text-xs">
             <div>
-              <div className="text-[#171E22]/40 mb-1">Customer</div>
+              <div className="text-[#10151F]/40 mb-1">Customer</div>
               <div>{order.customer.name}{order.customer.facility ? ` · ${order.customer.facility}` : ""}</div>
               <div className="font-mono">{order.customer.phone} · {order.customer.email}</div>
               <div>{order.customer.address}, {order.customer.city}</div>
-              {order.customer.license && <div className="text-[#171E22]/50">License: {order.customer.license}</div>}
-              {order.customer.notes && <div className="italic text-[#171E22]/50 mt-1">"{order.customer.notes}"</div>}
+              {order.customer.license && <div className="text-[#10151F]/50">License: {order.customer.license}</div>}
+              {order.customer.notes && <div className="italic text-[#10151F]/50 mt-1">"{order.customer.notes}"</div>}
             </div>
             <div>
-              <div className="text-[#171E22]/40 mb-1">Items</div>
+              <div className="text-[#10151F]/40 mb-1">Items</div>
               {order.items.map((it) => (
                 <div key={it.id} className="flex justify-between font-mono"><span>{it.id} × {it.qty}</span><span>{money(it.price * it.qty)}</span></div>
               ))}
-              <div className="flex justify-between font-mono font-semibold pt-1 mt-1 border-t border-[#C9D6D6]"><span>Total</span><span>{money(order.total)}</span></div>
+              <div className="flex justify-between font-mono font-semibold pt-1 mt-1 border-t border-[#D7DCE3]"><span>Total</span><span>{money(order.total)}</span></div>
             </div>
           </div>
           <div>
-            <div className="text-[10px] text-[#171E22]/40 mb-1.5">Update status</div>
+            <div className="text-[10px] text-[#10151F]/40 mb-1.5">Update status</div>
             <div className="flex gap-1.5 flex-wrap items-center">
               {ALL_STATUSES.map((s) => {
                 const selected = order.status === s;
@@ -2715,14 +3117,14 @@ function OrderCard({ order, updateStatus }) {
                     type="button"
                     onClick={() => updateStatus(order.orderId, s)}
                     style={selected ? { backgroundColor: STATUS_HEX[s].bg, color: STATUS_HEX[s].text, borderColor: STATUS_HEX[s].text } : undefined}
-                    className={`px-2.5 py-1.5 rounded-full text-[11px] border-2 flex items-center gap-1 transition-all ${selected ? "font-semibold shadow-sm" : "bg-white border-[#C9D6D6] text-[#171E22]/60"}`}
+                    className={`px-2.5 py-1.5 rounded-full text-[11px] border-2 flex items-center gap-1 transition-all ${selected ? "font-semibold shadow-sm" : "bg-white border-[#D7DCE3] text-[#10151F]/60"}`}
                   >
                     {selected && <Check size={10} strokeWidth={3} />}
                     {s}
                   </button>
                 );
               })}
-              <button onClick={() => printOrderInvoice(order)} className="ml-auto px-2.5 py-1.5 rounded-full text-[11px] border-2 border-[#C9D6D6] bg-white text-[#171E22]/60 flex items-center gap-1 hover:border-[#23424D]/50" aria-label="Print invoice for this order">
+              <button onClick={() => printOrderInvoice(order)} className="ml-auto px-2.5 py-1.5 rounded-full text-[11px] border-2 border-[#D7DCE3] bg-white text-[#10151F]/60 flex items-center gap-1 hover:border-[#1E3A5F]/50" aria-label="Print invoice for this order">
                 <Printer size={11} /> Print Invoice
               </button>
             </div>
