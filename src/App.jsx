@@ -1844,94 +1844,20 @@ function TopHeader({ client, logout, cartCount, setCartOpen, goMyOrders, openPro
   );
 }
 
-const TERMS_TEXT = `Last updated: ${new Date().toISOString().slice(0, 10)}
+const TERMS_TEXT = `These Terms & Conditions are placeholder text — replace with content reviewed by your legal counsel before going live.
 
-These Terms & Conditions ("Terms") govern access to and use of the Meridian Orthopaedics website and ordering platform (the "Site") by registered business customers, including hospitals, clinics, surgical centers, distributors, and pharmacies ("Customer", "you"). By registering an account or placing an order, you agree to be bound by these Terms.
+1. Orders placed through this platform are subject to confirmation by Meridian Orthopaedics and are not final until a Confirmed status is issued.
+2. Minimum order quantities (MOQ) shown per product apply to all orders.
+3. Prices are shown in PKR and are subject to change without prior notice; the price at the time of order confirmation applies.
+4. Cancellations are only accepted while an order is in Pending status.
+5. All implants are supplied sterile as indicated (Gamma or ETO) and should be stored per manufacturer guidelines.`;
 
-1. WHO MAY REGISTER
-This Site is intended solely for licensed healthcare facilities, distributors, and other businesses purchasing orthopaedic implants and related products for professional, commercial, or clinical use. It is not intended for individual consumers or personal use. By registering, you confirm that you are acting on behalf of a legitimate business or institution and that the license/registration information you provide, if any, is accurate.
+const PRIVACY_TEXT = `This Privacy Policy is placeholder text — replace with content reviewed by your legal counsel before going live.
 
-2. ACCOUNT REGISTRATION & SECURITY
-You must register an account to view pricing and place orders. You are responsible for maintaining the confidentiality of your password and security question answer, and for all activity under your account. Notify us immediately at the contact details in the footer if you suspect unauthorized access to your account. We reserve the right to suspend or terminate accounts found to contain false, misleading, or fraudulent registration information.
-
-3. PRODUCT INFORMATION & INTENDED USE
-Products listed on this Site are orthopaedic implants and related surgical hardware intended for use exclusively by qualified, licensed medical and surgical professionals in appropriate clinical settings. Nothing on this Site constitutes medical advice, and product listings, specifications, and technical descriptions (including any provided via the chat assistant) are for general reference only and do not replace the applicable Instructions for Use, product labeling, or the clinical judgment of a qualified surgeon. Selection of the appropriate implant for a specific patient or procedure is solely the responsibility of the treating medical professional.
-
-4. ORDERS & CONFIRMATION
-Adding items to your cart and submitting an order is an offer to purchase, not a binding sale. All orders are subject to review and confirmation by Meridian Orthopaedics and are not final until their status is updated to "Confirmed." We reserve the right to decline, limit, or cancel any order at our discretion, including in cases of suspected fraud, incorrect pricing, or stock unavailability.
-
-5. MINIMUM ORDER QUANTITIES (MOQ)
-The minimum order quantity displayed for each product applies to all orders and cannot be waived through the Site. Quantities must be submitted in multiples of the stated MOQ.
-
-6. PRICING & PAYMENT
-All prices are listed in Pakistani Rupees (PKR) and are exclusive of applicable taxes and shipping charges unless stated otherwise. Prices are subject to change without prior notice; the price confirmed at the time your order is accepted applies to that order. Payment is accepted via Cash on Delivery or Bank Transfer only; this Site does not process online card or digital payments, and you should never be asked to enter card details on this Site.
-
-7. CANCELLATIONS
-Orders may be cancelled by the Customer only while the order status is "Pending," using the My Orders section of your account. Once an order has been Confirmed, Dispatched, or Delivered, cancellation is at the discretion of Meridian Orthopaedics and may be subject to a restocking or handling charge.
-
-8. SHIPPING & DELIVERY
-Delivery timelines communicated verbally, by phone, or through any means other than a written order confirmation from Meridian Orthopaedics staff are estimates only and are not guaranteed. Risk of loss passes to the Customer upon delivery to the address provided at checkout; please ensure delivery details are accurate and complete.
-
-9. RETURNS, EXCHANGES & WARRANTY
-Due to the sterile and regulated nature of orthopaedic implants, products that have left our facility cannot be returned or exchanged once dispatched, except where the product is defective, damaged in transit, or does not match your confirmed order — in which case, contact us within 48 hours of delivery using the details in the footer. Implants are supplied sterile as indicated (Gamma or ETO) and must be stored and handled per the accompanying manufacturer guidelines; improper storage or handling after delivery voids any related warranty.
-
-10. INTELLECTUAL PROPERTY
-All content on this Site, including product designs, technical diagrams, text, and branding, is the property of Meridian Orthopaedics or its licensors and may not be reproduced, distributed, or used commercially without prior written consent.
-
-11. PROHIBITED USE
-You agree not to: misuse the Site or attempt to gain unauthorized access to any account, data, or system; use the Site for any unlawful purpose; resell, misrepresent, or relabel products in a way that violates applicable medical device regulations; or use the chat assistant to attempt to extract system information or bypass ordering rules.
-
-12. LIMITATION OF LIABILITY
-To the fullest extent permitted by law, Meridian Orthopaedics shall not be liable for any indirect, incidental, or consequential damages arising from use of this Site or products purchased through it, beyond the value of the applicable order. Nothing in these Terms limits liability that cannot be excluded under applicable Pakistani law, including in respect of defective products.
-
-13. ACCOUNT TERMINATION
-We may suspend or terminate any account, at our discretion and without prior notice, for violation of these Terms, suspected fraudulent activity, or misuse of the Site.
-
-14. GOVERNING LAW
-These Terms are governed by the laws of Pakistan. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts of Pakistan.
-
-15. CHANGES TO THESE TERMS
-We may update these Terms from time to time; the version posted on this Site at the time of your order applies. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms.
-
-16. CONTACT
-Questions about these Terms can be directed to the contact details listed in the Site footer.`;
-
-const PRIVACY_TEXT = `Last updated: ${new Date().toISOString().slice(0, 10)}
-
-This Privacy Policy explains how Meridian Orthopaedics ("we", "us") collects, uses, and protects information when you register for an account, browse the catalogue, or place an order on this Site.
-
-1. INFORMATION WE COLLECT
-At registration, we collect: contact person name, business/facility name, business or drug license number (where provided), phone number, email address, city, and delivery address. We also collect a security question and answer used solely to verify your identity if you need to reset your password. When you place an order, we collect the order contents, delivery details, and order status history associated with your account. If you use the chat assistant, the messages you send and receive are processed to generate a response (see Section 5).
-
-2. HOW WE USE YOUR INFORMATION
-We use the information collected to: create and manage your account; process, confirm, and deliver your orders; respond to support requests; and maintain the security of the Site (for example, detecting repeated failed login attempts). We do not use your information for advertising, and we do not sell your information to anyone.
-
-3. PASSWORDS & ACCOUNT SECURITY
-Your password and security question answer are never stored in plain text — they are protected using industry-standard, individually-salted hashing before being stored, meaning even our own staff cannot see your actual password. All data is transmitted between your browser and our systems over an encrypted (HTTPS) connection.
-
-4. WHO CAN SEE YOUR INFORMATION
-Your account and order details are only accessible to authorized Meridian Orthopaedics administrative staff for the purpose of fulfilling your orders and providing support. Other registered customers cannot see your account, order history, or contact details.
-
-5. THIRD-PARTY SERVICES
-This Site uses a third-party AI service to power the product chat assistant; messages you send to the assistant are processed by that service solely to generate a reply and are not used to identify you personally or linked back to your account. Do not include sensitive personal information in chat messages. We do not use any third-party advertising or analytics trackers that follow you across other websites.
-
-6. COOKIES & LOCAL STORAGE
-This Site uses your browser's local storage (not third-party cookies) to keep you signed in between visits and to remember items in your cart. This information stays on your device and is used only to operate the Site.
-
-7. DATA RETENTION
-We retain your account and order information for as long as your account remains active and as needed to meet our legal, accounting, and regulatory record-keeping obligations for medical device sales. You may request deletion of your account as described in Section 9, subject to any records we are required to retain by law.
-
-8. CHILDREN'S PRIVACY
-This Site is intended for use by licensed businesses and healthcare professionals only and is not directed at, or intended for use by, individuals under the age of 18.
-
-9. YOUR RIGHTS
-You may request a copy of the personal information we hold about you, ask us to correct inaccurate information, or request deletion of your account and associated data, by contacting us using the details in the Site footer. We will respond within a reasonable timeframe, subject to any records we are legally required to retain.
-
-10. CHANGES TO THIS POLICY
-We may update this Privacy Policy from time to time to reflect changes in our practices. The version posted on this Site applies at the time you use it.
-
-11. CONTACT
-Questions about this Privacy Policy or your data can be directed to the contact details listed in the Site footer.`;
+1. We collect the contact, facility, and license information you provide at registration to process your orders.
+2. Your password is stored in hashed form and is never visible to our staff.
+3. We do not sell or share your information with third parties outside of fulfilling your orders.
+4. You may request a copy of your data or its deletion by contacting us using the details in the footer.`;
 
 const DEFAULT_SITE_SETTINGS = {
   email: "sales@meridianortho.pk",
